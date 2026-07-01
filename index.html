@@ -11,14 +11,13 @@
     
     <style>
         :root {
-            /* Ночная тёмно-синяя палитра NightWin */
             --bg-gradient: linear-gradient(135deg, #020617 0%, #070f2b 40%, #1b1a55 100%);
             --glass-bg: rgba(15, 23, 42, 0.3);
             --glass-border: rgba(255, 255, 255, 0.05);
             --glass-blur: blur(30px);
             --text-main: #f1f5f9;
             --text-muted: #64748b;
-            --accent: #3b82f6; /* Насыщенный синий */
+            --accent: #3b82f6;
             --accent-glow: rgba(59, 130, 246, 0.35);
             --syntax-keyword: #38bdf8;
             --syntax-fn: #60a5fa;
@@ -35,10 +34,9 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Красивое светло-серое выделение текста */
         ::selection {
-            background: rgba(241, 245, 249, 0.12); /* Полупрозрачный светло-серый цвет */
-            color: #ffffff; /* Текст становится чисто белым при выделении */
+            background: rgba(241, 245, 249, 0.12);
+            color: #ffffff;
         }
         ::-moz-selection {
             background: rgba(241, 245, 249, 0.12);
@@ -54,11 +52,10 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
-            overflow: hidden; /* Убирает задний скроллбар сайта и лишние полосы */
+            overflow: hidden;
             position: relative;
         }
 
-        /* Синее неоновое свечение на фоне */
         body::before, body::after {
             content: '';
             position: absolute;
@@ -82,7 +79,6 @@
             right: 10%;
         }
 
-        /* Главная стеклянная карточка iOS */
         .glass-container {
             position: relative;
             z-index: 1;
@@ -102,7 +98,6 @@
             overflow: hidden;
         }
 
-        /* Боковая панель */
         .sidebar {
             border-right: 1px solid var(--glass-border);
             background: rgba(2, 6, 23, 0.4);
@@ -170,7 +165,6 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
 
-        /* Основной контент */
         .main-content {
             display: flex;
             flex-direction: column;
@@ -179,7 +173,6 @@
             background: rgba(15, 23, 42, 0.15);
         }
 
-        /* Поиск и верхняя панель */
         .header {
             padding: 25px 40px;
             border-bottom: 1px solid var(--glass-border);
@@ -227,7 +220,6 @@
             box-shadow: 0 0 15px var(--accent-glow);
         }
 
-        /* Умный iOS Сегментированный Свитчер Языка */
         .lang-switcher {
             display: flex;
             background: rgba(2, 6, 23, 0.6);
@@ -278,7 +270,6 @@
             border: 1px solid var(--glass-border);
         }
 
-        /* Тело скролла */
         .content-body {
             padding: 40px;
             overflow-y: auto;
@@ -286,7 +277,6 @@
             scroll-behavior: smooth;
         }
 
-        /* Красивый кастомный скроллбар контента */
         .content-body::-webkit-scrollbar {
             width: 6px;
         }
@@ -298,7 +288,6 @@
             background: rgba(255, 255, 255, 0.15);
         }
 
-        /* Панели вкладок */
         .tab-panel {
             display: none;
         }
@@ -326,7 +315,6 @@
             margin-bottom: 25px;
         }
 
-        /* Мультиязычные строки */
         [data-lang-ru], [data-lang-en] {
             display: none;
         }
@@ -334,15 +322,12 @@
         html[lang="ru"] [data-lang-ru] { display: inline; }
         html[lang="en"] [data-lang-en] { display: inline; }
         
-        /* Блочные мультиязычные элементы */
         html[lang="ru"] div[data-lang-ru], html[lang="ru"] p[data-lang-ru] { display: block; }
         html[lang="en"] div[data-lang-en], html[lang="en"] p[data-lang-en] { display: block; }
         
-        /* Для комментариев кода внутри pre/span */
         html[lang="ru"] span[data-lang-ru] { display: inline; }
         html[lang="en"] span[data-lang-en] { display: inline; }
 
-        /* Карточки функций и карточки примеров */
         .api-card, .example-card {
             background: rgba(255, 255, 255, 0.01);
             border: 1px solid var(--glass-border);
@@ -394,26 +379,23 @@
             line-height: 1.5;
         }
 
-        /* Контейнер кода для позиционирования кнопки "Копировать" */
         .code-container {
             position: relative;
             margin-top: 10px;
         }
 
-        /* Код блоки */
         pre {
             background: rgba(2, 6, 23, 0.6) !important;
             border: 1px solid var(--glass-border);
             border-radius: 10px;
             padding: 18px;
-            padding-right: 55px; /* Запас места под кнопку */
+            padding-right: 55px;
             overflow-x: auto;
             font-family: 'JetBrains Mono', monospace;
             font-size: 13.5px;
             line-height: 1.6;
         }
 
-        /* Кнопка Копировать */
         .copy-btn {
             position: absolute;
             top: 12px;
@@ -439,7 +421,6 @@
             border-color: rgba(255, 255, 255, 0.15);
         }
 
-        /* Состояние успешного копирования (в стиле NightWin) */
         .copy-btn.copied {
             color: #fff;
             background: rgba(59, 130, 246, 0.2);
@@ -454,13 +435,11 @@
             color: var(--text-muted);
         }
 
-        /* Подсветка кода */
         .sc-kw { color: var(--syntax-keyword); }
         .sc-fn { color: var(--syntax-fn); }
         .sc-str { color: var(--syntax-str); }
         .sc-num { color: var(--syntax-num); }
         .sc-cm { color: var(--syntax-cm); font-style: italic; }
-
     </style>
 </head>
 <body>
@@ -555,6 +534,27 @@
                         </div>
                     </div>
                     <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">draw_circle_3d</span><span class="fn-args">(x, y, z, radius, r, g, b, a, segments)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Рисует 3D круг в позиции мира.</span>
+                            <span data-lang-en>Draws a 3D circle at world position.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">draw_rect</span><span class="fn-args">(x, y, w, h, r, g, b, a, thickness)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Рисует контур прямоугольника.</span>
+                            <span data-lang-en>Draws a rectangle outline.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">draw_filled_rect</span><span class="fn-args">(x, y, w, h, r, g, b, a)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Рисует залитый прямоугольник.</span>
+                            <span data-lang-en>Draws a filled rectangle.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
                         <div class="api-signature"><span class="fn-name">world_to_screen</span><span class="fn-args">(x, y, z)</span></div>
                         <div class="api-desc">
                             <span data-lang-ru>Переводит 3D координаты мира в 2D координаты экрана. Возвращает <code class="sc-str">{x, y}</code> или <code class="sc-kw">null</code>.</span>
@@ -573,7 +573,14 @@
                         <div class="api-signature"><span class="fn-name">get_local_player</span><span class="fn-args">()</span></div>
                         <div class="api-desc">
                             <span data-lang-ru>Возвращает указатель на локального игрока или <code class="sc-kw">null</code>.</span>
-                            <span data-lang-en>Returns the pointer to the local player, or <code class="sc-kw">null</code>.</span>
+                            <span data-lang-en>Returns the pointer to the local player pawn, or <code class="sc-kw">null</code>.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">get_my_controller</span><span class="fn-args">()</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Возвращает указатель на локальный контроллер игрока или <code class="sc-kw">null</code>.</span>
+                            <span data-lang-en>Returns the pointer to the local player controller, or <code class="sc-kw">null</code>.</span>
                         </div>
                     </div>
                     <div class="api-card">
@@ -719,7 +726,7 @@
                         <h3><i class="fa-solid fa-user-shield"></i> Local Player Features</h3>
                         <div class="code-container">
                             <button class="copy-btn" title="Копировать / Copy"><i class="fa-regular fa-copy"></i></button>
-                            <pre><code><span class="sc-kw">function</span> <span class="sc-fn">render_local_features</span>() {
+                            <pre><code><span class="sc-kw">function</span> <span class="sc-fn">on_render</span>() {
     <span class="sc-kw">if</span> (!<span class="sc-fn">is_game_ready</span>()) <span class="sc-kw">return</span>;
 
     <span class="sc-kw">var</span> me = <span class="sc-fn">get_local_player</span>();
@@ -755,6 +762,26 @@
                         </div>
                     </div>
 
+                    <div class="example-card">
+                        <h3><i class="fa-solid fa-robot"></i> SDK Properties: Character & Pawn</h3>
+                        <div class="code-container">
+                            <button class="copy-btn" title="Копировать / Copy"><i class="fa-regular fa-copy"></i></button>
+                            <pre><code><span class="sc-kw">function</span> <span class="sc-fn">on_render</span>() {
+    <span class="sc-kw">if</span> (!<span class="sc-fn">is_game_ready</span>()) <span class="sc-kw">return</span>;
+
+    <span class="sc-kw">var</span> controller = <span class="sc-fn">get_my_controller</span>();
+    <span class="sc-kw">if</span> (!controller) <span class="sc-kw">return</span>;
+
+    <span class="sc-kw">var</span> character = <span class="sc-fn">get_property</span>(controller, <span class="sc-str">"Character"</span>);
+    <span class="sc-kw">var</span> pawn = <span class="sc-fn">get_property</span>(controller, <span class="sc-str">"Pawn"</span>);
+    <span class="sc-kw">var</span> playerState = <span class="sc-fn">get_property</span>(controller, <span class="sc-str">"PlayerState"</span>);
+
+    <span class="sc-cm" data-lang-ru>// А дальше думайте сами что вы можете сделать ;)</span>
+    <span class="sc-cm" data-lang-en>// Now it's up to you what you can do ;)</span>
+}</code></pre>
+                        </div>
+                    </div>
+
                 </section>
             </div>
         </main>
@@ -767,7 +794,6 @@
         const noResults = document.getElementById('noResults');
         const tabsContainer = document.querySelector('.nav-tabs');
 
-        // Умное динамическое позиционирование iOS слайдера языка
         function updateSliderPosition() {
             const activeBtn = document.querySelector('.lang-btn.active');
             const slider = document.getElementById('langSlider');
@@ -777,7 +803,6 @@
             }
         }
 
-        // Переключение Языка
         function setLanguage(lang) {
             document.documentElement.setAttribute('lang', lang);
             
@@ -792,14 +817,12 @@
                 btnEn.classList.add('active');
             }
             
-            // Сохраняем выбор пользователя в память браузера
             localStorage.setItem('nightwin_lang', lang);
             
             updateSliderPosition();
             handleSearchLogic();
         }
 
-        // Автоопределение и инициализация языка при старте страницы
         window.addEventListener('DOMContentLoaded', () => {
             let savedLang = localStorage.getItem('nightwin_lang');
             
@@ -811,7 +834,6 @@
             setLanguage(savedLang);
         });
 
-        // Логика копирования блоков кода (копирует только видимый текст)
         document.querySelectorAll('.copy-btn').forEach(button => {
             button.addEventListener('click', () => {
                 const container = button.closest('.code-container');
@@ -831,10 +853,8 @@
             });
         });
 
-        // Перерасчёт положения слайдера при изменении размеров экрана
         window.addEventListener('resize', updateSliderPosition);
 
-        // Логика табов
         tabs.forEach(tab => {
             tab.addEventListener('click', (e) => {
                 const targetId = tab.getAttribute('data-tab');
@@ -858,7 +878,6 @@
             });
         });
 
-        // Поиск
         searchInput.addEventListener('input', handleSearchLogic);
 
         function handleSearchLogic() {
@@ -889,7 +908,6 @@
             panels.forEach(panel => {
                 let panelHasMatch = false;
 
-                // Для обычных вкладок API
                 if(panel.id !== 'examples') {
                     const panelCards = panel.querySelectorAll('.api-card');
                     panelCards.forEach(card => {
@@ -905,7 +923,6 @@
                         }
                     });
                 } 
-                // Для вкладки примеров
                 else {
                     const panelExamples = panel.querySelectorAll('.example-card');
                     panelExamples.forEach(ecard => {
