@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NightWin API Documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Ночная тёмно-синяя палитра NightWin */
+            --bg-gradient: linear-gradient(135deg, #020617 0%, #070f2b 40%, #1b1a55 100%);
+            --glass-bg: rgba(15, 23, 42, 0.3);
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --glass-blur: blur(30px);
+            --text-main: #f1f5f9;
+            --text-muted: #64748b;
+            --accent: #3b82f6; /* Насыщенный синий */
+            --accent-glow: rgba(59, 130, 246, 0.35);
+            --syntax-keyword: #38bdf8;
+            --syntax-fn: #60a5fa;
+            --syntax-str: #93c5fd;
+            --syntax-num: #f8fafc;
+            --syntax-cm: #475569;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Красивое светло-серое выделение текста */
+        ::selection {
+            background: rgba(241, 245, 249, 0.12); /* Полупрозрачный светло-серый цвет */
+            color: #ffffff; /* Текст становится чисто белым при выделении */
+        }
+        ::-moz-selection {
+            background: rgba(241, 245, 249, 0.12);
+            color: #ffffff;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            height: 100vh;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow: hidden; /* Убирает задний скроллбар сайта и лишние полосы */
+            position: relative;
+        }
+
+        /* Синее неоновое свечение на фоне */
+        body::before, body::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(140px);
+            z-index: 0;
+            opacity: 0.25;
+        }
+        body::before {
+            width: 500px;
+            height: 500px;
+            background: #1e40af;
+            top: -10%;
+            left: 10%;
+        }
+        body::after {
+            width: 600px;
+            height: 600px;
+            background: #3b82f6;
+            bottom: -10%;
+            right: 10%;
+        }
+
+        /* Главная стеклянная карточка iOS */
+        .glass-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 1200px;
+            height: 85vh;
+            min-height: 600px;
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8),
+                        inset 0 1px 0px rgba(255, 255, 255, 0.05);
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            overflow: hidden;
+        }
+
+        /* Боковая панель */
+        .sidebar {
+            border-right: 1px solid var(--glass-border);
+            background: rgba(2, 6, 23, 0.4);
+            display: flex;
+            flex-direction: column;
+            padding: 30px 20px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 35px;
+            padding-left: 10px;
+            color: #fff;
+            text-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .brand i {
+            color: var(--accent);
+        }
+
+        .nav-tabs {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .tab-btn {
+            width: 100%;
+            padding: 12px 16px;
+            background: transparent;
+            border: none;
+            border-radius: 12px;
+            color: var(--text-muted);
+            font-size: 15px;
+            font-weight: 500;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn i {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .tab-btn.active {
+            color: #fff;
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Основной контент */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
+            background: rgba(15, 23, 42, 0.15);
+        }
+
+        /* Поиск и верхняя панель */
+        .header {
+            padding: 25px 40px;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .search-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 380px;
+        }
+
+        .search-wrapper i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 16px 10px 40px;
+            background: rgba(2, 6, 23, 0.5);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--text-main);
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        /* Умный iOS Сегментированный Свитчер Языка */
+        .lang-switcher {
+            display: flex;
+            background: rgba(2, 6, 23, 0.6);
+            border: 1px solid var(--glass-border);
+            padding: 3px;
+            border-radius: 10px;
+            position: relative;
+            user-select: none;
+        }
+
+        .lang-btn {
+            padding: 6px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 2;
+            position: relative;
+            transition: color 0.2s ease;
+        }
+
+        .lang-btn.active {
+            color: #fff;
+        }
+
+        .lang-slider {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            bottom: 3px;
+            width: 0;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 7px;
+            z-index: 1;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            border: 1px solid var(--glass-border);
+        }
+
+        /* Тело скролла */
+        .content-body {
+            padding: 40px;
+            overflow-y: auto;
+            flex-grow: 1;
+            scroll-behavior: smooth;
+        }
+
+        /* Красивый кастомный скроллбар контента */
+        .content-body::-webkit-scrollbar {
+            width: 6px;
+        }
+        .content-body::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+        }
+        .content-body::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Панели вкладок */
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active-panel {
+            display: block;
+            animation: fadeIn 0.25s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            font-size: 26px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+
+        .tab-desc {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        /* Мультиязычные строки */
+        [data-lang-ru], [data-lang-en] {
+            display: none;
+        }
+
+        html[lang="ru"] [data-lang-ru] { display: inline; }
+        html[lang="en"] [data-lang-en] { display: inline; }
+        
+        /* Блочные мультиязычные элементы */
+        html[lang="ru"] div[data-lang-ru], html[lang="ru"] p[data-lang-ru] { display: block; }
+        html[lang="en"] div[data-lang-en], html[lang="en"] p[data-lang-en] { display: block; }
+        
+        /* Для комментариев кода внутри pre/span */
+        html[lang="ru"] span[data-lang-ru] { display: inline; }
+        html[lang="en"] span[data-lang-en] { display: inline; }
+
+        /* Карточки функций и карточки примеров */
+        .api-card, .example-card {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .api-card:hover, .example-card:hover {
+            background: rgba(255, 255, 255, 0.02);
+            border-color: rgba(59, 130, 246, 0.2);
+        }
+
+        .example-card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .example-card h3 i {
+            color: var(--accent);
+            font-size: 14px;
+        }
+
+        .api-signature {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 15px;
+            font-weight: 500;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .api-signature .fn-name {
+            color: #60a5fa;
+        }
+
+        .api-signature .fn-args {
+            color: #94a3b8;
+        }
+
+        .api-desc {
+            font-size: 14px;
+            color: #94a3b8;
+            line-height: 1.5;
+        }
+
+        /* Контейнер кода для позиционирования кнопки "Копировать" */
+        .code-container {
+            position: relative;
+            margin-top: 10px;
+        }
+
+        /* Код блоки */
+        pre {
+            background: rgba(2, 6, 23, 0.6) !important;
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            padding: 18px;
+            padding-right: 55px; /* Запас места под кнопку */
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13.5px;
+            line-height: 1.6;
+        }
+
+        /* Кнопка Копировать */
+        .copy-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        .copy-btn:hover {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Состояние успешного копирования (в стиле NightWin) */
+        .copy-btn.copied {
+            color: #fff;
+            background: rgba(59, 130, 246, 0.2);
+            border-color: var(--accent);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .no-results {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+        }
+
+        /* Подсветка кода */
+        .sc-kw { color: var(--syntax-keyword); }
+        .sc-fn { color: var(--syntax-fn); }
+        .sc-str { color: var(--syntax-str); }
+        .sc-num { color: var(--syntax-num); }
+        .sc-cm { color: var(--syntax-cm); font-style: italic; }
+
+    </style>
+</head>
+<body>
+
+    <div class="glass-container">
+        
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-moon"></i>
+                <span>NightWin API</span>
+            </div>
+            <ul class="nav-tabs">
+                <li><button class="tab-btn active" data-tab="general"><i class="fa-solid fa-sliders"></i> General</button></li>
+                <li><button class="tab-btn" data-tab="drawing"><i class="fa-solid fa-palette"></i> Drawing</button></li>
+                <li><button class="tab-btn" data-tab="objects"><i class="fa-solid fa-users"></i> Game Objects</button></li>
+                <li><button class="tab-btn" data-tab="ui"><i class="fa-solid fa-window-restore"></i> UI Management</button></li>
+                <li><button class="tab-btn" data-tab="advanced"><i class="fa-solid fa-gears"></i> Advanced SDK</button></li>
+                <li><button class="tab-btn" data-tab="examples"><i class="fa-solid fa-code"></i> Examples</button></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <div class="search-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="searchInput" class="search-input" placeholder="Поиск / Search...">
+                </div>
+                
+                <div class="header-actions">
+                    <div class="lang-switcher">
+                        <div class="lang-slider" id="langSlider"></div>
+                        <button class="lang-btn" id="btnRu" onclick="setLanguage('ru')">RU</button>
+                        <button class="lang-btn" id="btnEn" onclick="setLanguage('en')">EN</button>
+                    </div>
+                    <div class="badge">JavaScript ES5</div>
+                </div>
+            </header>
+
+            <div class="content-body" id="contentBody">
+                <div class="no-results" id="noResults">
+                    <span data-lang-ru>Ничего не найдено</span>
+                    <span data-lang-en>No results found</span>
+                </div>
+
+                <section id="general" class="tab-panel active-panel">
+                    <h2>General</h2>
+                    <p class="tab-desc">
+                        <span data-lang-ru>Основные системные функции инициализации и игровых циклов.</span>
+                        <span data-lang-en>Core system initialization and core loop functions.</span>
+                    </p>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">is_game_ready</span><span class="fn-args">()</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Возвращает <code class="sc-kw">true</code>, если игра инициализирована и готова.</span>
+                            <span data-lang-en>Returns <code class="sc-kw">true</code> if the game is initialized and ready.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">on_render</span><span class="fn-args">()</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>(Callback) Определяйте эту функцию для выполнения кода каждый кадр.</span>
+                            <span data-lang-en>(Callback) Define this function to run code every frame.</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="drawing" class="tab-panel">
+                    <h2>Drawing</h2>
+                    <p class="tab-desc">
+                        <span data-lang-ru>Инструменты рендеринга геометрии и текста на экране.</span>
+                        <span data-lang-en>Screen overlay, rendering geometry and text drawing tools.</span>
+                    </p>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">draw_text</span><span class="fn-args">(x, y, r, g, b, a, text)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Рисует текст на экране по заданным координатам и цвету.</span>
+                            <span data-lang-en>Draws text on the screen using 2D coordinates and RGBA color.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">draw_line</span><span class="fn-args">(x1, y1, x2, y2, r, g, b, a, thickness)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Отрисовывает линию с указанной толщиной.</span>
+                            <span data-lang-en>Draws a line with custom thickness.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">draw_circle</span><span class="fn-args">(x, y, radius, r, g, b, a, segments)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Рисует круг с разбиением на сегменты.</span>
+                            <span data-lang-en>Draws a circle. Segments parameter defines complexity/smoothing.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">world_to_screen</span><span class="fn-args">(x, y, z)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Переводит 3D координаты мира в 2D координаты экрана. Возвращает <code class="sc-str">{x, y}</code> или <code class="sc-kw">null</code>.</span>
+                            <span data-lang-en>Projects 3D world coordinates onto 2D screen coordinates. Returns <code class="sc-str">{x, y}</code> or <code class="sc-kw">null</code>.</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="objects" class="tab-panel">
+                    <h2>Game Objects</h2>
+                    <p class="tab-desc">
+                        <span data-lang-ru>Взаимодействие со структурами сущностей и игроков.</span>
+                        <span data-lang-en>Methods to interact with actors, entity structures and players.</span>
+                    </p>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">get_local_player</span><span class="fn-args">()</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Возвращает указатель на локального игрока или <code class="sc-kw">null</code>.</span>
+                            <span data-lang-en>Returns the pointer to the local player, or <code class="sc-kw">null</code>.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">get_targets</span><span class="fn-args">()</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Возвращает массив указателей на все валидные цели (игроков/акторов).</span>
+                            <span data-lang-en>Returns an array of pointers to all valid targets (players/actors).</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">get_name</span><span class="fn-args">(ptr)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Возвращает имя сущности по ее указателю.</span>
+                            <span data-lang-en>Returns the name of the actor by its pointer.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">get_location</span><span class="fn-args">(ptr)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Возвращает 3D позицию объекта <code class="sc-str">{x, y, z}</code>.</span>
+                            <span data-lang-en>Returns the 3D location <code class="sc-str">{x, y, z}</code> of the actor.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">get_health</span><span class="fn-args">(ptr)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Возвращает количество здоровья актора.</span>
+                            <span data-lang-en>Returns the health value of the actor.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">is_friend</span><span class="fn-args">(ptr)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Проверяет, находится ли актор в списке друзей (<code class="sc-kw">true</code>/<code class="sc-kw">false</code>).</span>
+                            <span data-lang-en>Returns <code class="sc-kw">true</code> if the actor is on your friend list.</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="ui" class="tab-panel">
+                    <h2>UI Management</h2>
+                    <p class="tab-desc">
+                        <span data-lang-ru>Управление встроенным меню софта.</span>
+                        <span data-lang-en>Menu interaction, checkbox creations and layout bindings.</span>
+                    </p>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">register_tab</span><span class="fn-args">(name)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Создает новую главную вкладку в сайдбаре меню.</span>
+                            <span data-lang-en>Creates a new main tab in the menu sidebar.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">register_section</span><span class="fn-args">(tab_name, section_name)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Создает подсекцию внутри вкладки.</span>
+                            <span data-lang-en>Creates a sub-section (sub-tab) inside a tab.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">add_checkbox</span><span class="fn-args">(tab_name, section_name, label, default_value)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Добавляет интерактивный чекбокс.</span>
+                            <span data-lang-en>Adds a custom checkbox setting element.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">get_ui_value</span><span class="fn-args">(label)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Возвращает текущее состояние элемента UI (<code class="sc-kw">true</code>/<code class="sc-kw">false</code>).</span>
+                            <span data-lang-en>Returns the current value (<code class="sc-kw">true</code>/<code class="sc-kw">false</code>) of a UI element.</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="advanced" class="tab-panel">
+                    <h2>Advanced SDK API</h2>
+                    <p class="tab-desc">
+                        <span data-lang-ru>Прямая работа с движком игры и вызовами функций.</span>
+                        <span data-lang-en>Low-level engine interactions and direct function calling.</span>
+                    </p>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">find_class</span><span class="fn-args">(name)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Находит указатель на класс по его названию.</span>
+                            <span data-lang-en>Finds a class pointer by name (e.g., "DamageRegular").</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">call_function</span><span class="fn-args">(obj_ptr, func_name, args_array)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Вызывает любую SDK функцию через встроенный ProcessEvent.</span>
+                            <span data-lang-en>Calls any SDK function via ProcessEvent mechanism.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">get_property</span><span class="fn-args">(obj_ptr, prop_name)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Читает любое свойство/переменную из объекта.</span>
+                            <span data-lang-en>Reads any variable from an object by its SDK name.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">set_property</span><span class="fn-args">(obj_ptr, prop_name, value)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Записывает значение в любую переменную объекта.</span>
+                            <span data-lang-en>Writes a value to any object variable.</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="examples" class="tab-panel">
+                    <h2>Examples</h2>
+                    <p class="tab-desc">
+                        <span data-lang-ru>Готовые структурированные мини-модули и полезные скрипты.</span>
+                        <span data-lang-en>Pre-made structured script snippets and configurations.</span>
+                    </p>
+                    
+                    <div class="example-card">
+                        <h3><i class="fa-solid fa-crosshairs"></i> Render Target (ESP)</h3>
+                        <div class="code-container">
+                            <button class="copy-btn" title="Копировать / Copy"><i class="fa-regular fa-copy"></i></button>
+                            <pre><code><span class="sc-kw">function</span> <span class="sc-fn">on_render</span>() {
+    <span class="sc-kw">if</span> (!<span class="sc-fn">is_game_ready</span>()) <span class="sc-kw">return</span>;
+    
+    <span class="sc-kw">var</span> targets = <span class="sc-fn">get_targets</span>();
+    <span class="sc-kw">for</span> (<span class="sc-kw">var</span> i = <span class="sc-num">0</span>; i < targets.length; i++) {
+        <span class="sc-kw">var</span> player = targets[i];
+        <span class="sc-kw">var</span> loc = <span class="sc-fn">get_location</span>(player);
+        <span class="sc-kw">if</span> (loc) {
+            <span class="sc-kw">var</span> screen = <span class="sc-fn">world_to_screen</span>(loc.x, loc.y, loc.z + <span class="sc-num">100</span>);
+            <span class="sc-kw">if</span> (screen) {
+                <span class="sc-kw">var</span> name = <span class="sc-fn">get_name</span>(player);
+                <span class="sc-fn">draw_text</span>(screen.x, screen.y, <span class="sc-num">255</span>, <span class="sc-num">0</span>, <span class="sc-num">0</span>, <span class="sc-num">255</span>, name);
+            }
+        }
+    }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <h3><i class="fa-solid fa-user-shield"></i> Local Player Features</h3>
+                        <div class="code-container">
+                            <button class="copy-btn" title="Копировать / Copy"><i class="fa-regular fa-copy"></i></button>
+                            <pre><code><span class="sc-kw">function</span> <span class="sc-fn">render_local_features</span>() {
+    <span class="sc-kw">if</span> (!<span class="sc-fn">is_game_ready</span>()) <span class="sc-kw">return</span>;
+
+    <span class="sc-kw">var</span> me = <span class="sc-fn">get_local_player</span>();
+    <span class="sc-kw">if</span> (!me) <span class="sc-kw">return</span>;
+
+    <span class="sc-kw">var</span> loc = <span class="sc-fn">get_location</span>(me);
+    <span class="sc-kw">var</span> hp = <span class="sc-fn">get_health</span>(me);
+    <span class="sc-kw">var</span> name = <span class="sc-fn">get_name</span>(me);
+
+    <span class="sc-kw">if</span> (loc) {
+        <span class="sc-kw">var</span> screen = <span class="sc-fn">world_to_screen</span>(loc.x, loc.y, loc.z);
+        <span class="sc-kw">if</span> (screen) {
+            <span class="sc-fn">draw_text</span>(screen.x, screen.y, <span class="sc-num">0</span>, <span class="sc-num">255</span>, <span class="sc-num">0</span>, <span class="sc-num">255</span>, name + <span class="sc-str">" ("</span> + Math.<span class="sc-fn">floor</span>(hp) + <span class="sc-str">" HP)"</span>);
+        }
+    }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <h3><i class="fa-solid fa-window-maximize"></i> Render UI & Menu Bindings</h3>
+                        <div class="code-container">
+                            <button class="copy-btn" title="Копировать / Copy"><i class="fa-regular fa-copy"></i></button>
+                            <pre><code><span class="sc-fn">register_tab</span>(<span class="sc-str">"night"</span>);
+<span class="sc-fn">register_section</span>(<span class="sc-str">"night"</span>, <span class="sc-str">"test"</span>);
+<span class="sc-fn">add_checkbox</span>(<span class="sc-str">"night"</span>, <span class="sc-str">"test"</span>, <span class="sc-str">"Render name"</span>, <span class="sc-kw">false</span>);
+
+<span class="sc-kw">function</span> <span class="sc-fn">on_render</span>() {
+    <span class="sc-kw">if</span> (<span class="sc-fn">get_ui_value</span>(<span class="sc-str">"Render name"</span>)) {
+        <span class="sc-cm" data-lang-ru>// Сюда вставляется логика отображения, привязанная к меню</span><span class="sc-cm" data-lang-en>// Insert menu-bound rendering logic here</span>
+    }
+}</code></pre>
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const tabs = document.querySelectorAll('.tab-btn');
+        const panels = document.querySelectorAll('.tab-panel');
+        const searchInput = document.getElementById('searchInput');
+        const noResults = document.getElementById('noResults');
+        const tabsContainer = document.querySelector('.nav-tabs');
+
+        // Умное динамическое позиционирование iOS слайдера языка
+        function updateSliderPosition() {
+            const activeBtn = document.querySelector('.lang-btn.active');
+            const slider = document.getElementById('langSlider');
+            if (activeBtn && slider) {
+                slider.style.width = activeBtn.offsetWidth + 'px';
+                slider.style.transform = `translateX(${activeBtn.offsetLeft - 3}px)`;
+            }
+        }
+
+        // Переключение Языка
+        function setLanguage(lang) {
+            document.documentElement.setAttribute('lang', lang);
+            
+            const btnRu = document.getElementById('btnRu');
+            const btnEn = document.getElementById('btnEn');
+
+            if (lang === 'ru') {
+                btnRu.classList.add('active');
+                btnEn.classList.remove('active');
+            } else {
+                btnRu.classList.remove('active');
+                btnEn.classList.add('active');
+            }
+            
+            // Сохраняем выбор пользователя в память браузера
+            localStorage.setItem('nightwin_lang', lang);
+            
+            updateSliderPosition();
+            handleSearchLogic();
+        }
+
+        // Автоопределение и инициализация языка при старте страницы
+        window.addEventListener('DOMContentLoaded', () => {
+            let savedLang = localStorage.getItem('nightwin_lang');
+            
+            if (!savedLang) {
+                const browserLang = navigator.language || navigator.userLanguage;
+                savedLang = browserLang.startsWith('ru') ? 'ru' : 'en';
+            }
+
+            setLanguage(savedLang);
+        });
+
+        // Логика копирования блоков кода (копирует только видимый текст)
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const container = button.closest('.code-container');
+                const codeText = container.querySelector('pre').innerText;
+
+                navigator.clipboard.writeText(codeText).then(() => {
+                    button.classList.add('copied');
+                    button.innerHTML = '<i class="fa-solid fa-check"></i>';
+
+                    setTimeout(() => {
+                        button.classList.remove('copied');
+                        button.innerHTML = '<i class="fa-regular fa-copy"></i>';
+                    }, 1500);
+                }).catch(err => {
+                    console.error('Ошибка копирования текста: ', err);
+                });
+            });
+        });
+
+        // Перерасчёт положения слайдера при изменении размеров экрана
+        window.addEventListener('resize', updateSliderPosition);
+
+        // Логика табов
+        tabs.forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                const targetId = tab.getAttribute('data-tab');
+
+                searchInput.value = '';
+                panels.forEach(p => p.style.display = ''); 
+                noResults.style.display = 'none';
+
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                panels.forEach(panel => {
+                    if(panel.id === targetId) {
+                        panel.classList.add('active-panel');
+                    } else {
+                        panel.classList.remove('active-panel');
+                    }
+                });
+
+                document.getElementById('contentBody').scrollTop = 0;
+            });
+        });
+
+        // Поиск
+        searchInput.addEventListener('input', handleSearchLogic);
+
+        function handleSearchLogic() {
+            const query = searchInput.value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.api-card');
+            const exampleCards = document.querySelectorAll('.example-card');
+
+            if (query === '') {
+                tabsContainer.style.opacity = '1';
+                tabsContainer.style.pointerEvents = 'auto';
+                
+                const currentActiveTab = document.querySelector('.tab-btn.active').getAttribute('data-tab');
+                panels.forEach(p => {
+                    p.classList.remove('active-panel');
+                    if(p.id === currentActiveTab) p.classList.add('active-panel');
+                });
+                cards.forEach(c => c.style.display = 'block');
+                exampleCards.forEach(ec => ec.style.display = 'block');
+                noResults.style.display = 'none';
+                return;
+            }
+
+            tabsContainer.style.opacity = '0.4';
+            tabsContainer.style.pointerEvents = 'none';
+
+            let anyMatch = false;
+
+            panels.forEach(panel => {
+                let panelHasMatch = false;
+
+                // Для обычных вкладок API
+                if(panel.id !== 'examples') {
+                    const panelCards = panel.querySelectorAll('.api-card');
+                    panelCards.forEach(card => {
+                        const signature = card.querySelector('.api-signature').textContent.toLowerCase();
+                        const desc = card.querySelector('.api-desc').textContent.toLowerCase();
+
+                        if(signature.includes(query) || desc.includes(query)) {
+                            card.style.display = 'block';
+                            panelHasMatch = true;
+                            anyMatch = true;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                } 
+                // Для вкладки примеров
+                else {
+                    const panelExamples = panel.querySelectorAll('.example-card');
+                    panelExamples.forEach(ecard => {
+                        const title = ecard.querySelector('h3').textContent.toLowerCase();
+                        const code = ecard.querySelector('pre').textContent.toLowerCase();
+
+                        if(title.includes(query) || code.includes(query)) {
+                            ecard.style.display = 'block';
+                            panelHasMatch = true;
+                            anyMatch = true;
+                        } else {
+                            ecard.style.display = 'none';
+                        }
+                    });
+                }
+
+                if(panelHasMatch) {
+                    panel.classList.add('active-panel');
+                } else {
+                    panel.classList.remove('active-panel');
+                }
+            });
+
+            noResults.style.display = anyMatch ? 'none' : 'block';
+        }
+    </script>
+</body>
+</html>
