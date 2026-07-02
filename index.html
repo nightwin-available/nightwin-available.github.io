@@ -561,6 +561,20 @@
                             <span data-lang-en>Projects 3D world coordinates onto 2D screen coordinates. Returns <code class="sc-str">{x, y}</code> or <code class="sc-kw">null</code>.</span>
                         </div>
                     </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">get_screen_center</span><span class="fn-args">()</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Возвращает 2D координаты центра экрана <code class="sc-str">{x, y}</code>.</span>
+                            <span data-lang-en>Returns the 2D coordinates of the screen center <code class="sc-str">{x, y}</code>.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">get_camera_position</span><span class="fn-args">()</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Возвращает 3D координаты камеры <code class="sc-str">{x, y, z}</code>.</span>
+                            <span data-lang-en>Returns the 3D coordinates of the camera <code class="sc-str">{x, y, z}</code>.</span>
+                        </div>
+                    </div>
                 </section>
 
                 <section id="objects" class="tab-panel">
@@ -778,6 +792,40 @@
 
     <span class="sc-cm" data-lang-ru>// А дальше думайте сами что вы можете сделать ;)</span>
     <span class="sc-cm" data-lang-en>// Now it's up to you what you can do ;)</span>
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <h3><i class="fa-solid fa-circle"></i> 3D Circles ESP & Snaplines</h3>
+                        <div class="code-container">
+                            <button class="copy-btn" title="Копировать / Copy"><i class="fa-regular fa-copy"></i></button>
+                            <pre><code><span class="sc-fn">register_tab</span>(<span class="sc-str">"night"</span>);
+<span class="sc-fn">register_section</span>(<span class="sc-str">"night"</span>, <span class="sc-str">"esp_3d"</span>);
+<span class="sc-fn">add_checkbox</span>(<span class="sc-str">"night"</span>, <span class="sc-str">"esp_3d"</span>, <span class="sc-str">"Enable 3D Visuals"</span>, <span class="sc-kw">false</span>);
+
+<span class="sc-kw">function</span> <span class="sc-fn">on_render</span>() {
+    <span class="sc-kw">if</span> (!<span class="sc-fn">is_game_ready</span>()) <span class="sc-kw">return</span>;
+
+    <span class="sc-kw">if</span> (<span class="sc-fn">get_ui_value</span>(<span class="sc-str">"Enable 3D Visuals"</span>)) {
+        <span class="sc-kw">var</span> targets = <span class="sc-fn">get_targets</span>();
+        <span class="sc-kw">var</span> center = <span class="sc-fn">get_screen_center</span>();
+
+        <span class="sc-kw">for</span> (<span class="sc-kw">var</span> i = <span class="sc-num">0</span>; i < targets.length; i++) {
+            <span class="sc-kw">var</span> player = targets[i];
+            <span class="sc-kw">if</span> (<span class="sc-fn">is_friend</span>(player)) <span class="sc-kw">continue</span>;
+
+            <span class="sc-kw">var</span> loc = <span class="sc-fn">get_location</span>(player);
+            <span class="sc-kw">if</span> (!loc) <span class="sc-kw">continue</span>;
+
+            <span class="sc-fn">draw_circle_3d</span>(loc.x, loc.y, loc.z, <span class="sc-num">60.0</span>, <span class="sc-num">0</span>, <span class="sc-num">255</span>, <span class="sc-num">0</span>, <span class="sc-num">255</span>, <span class="sc-num">32</span>);
+
+            <span class="sc-kw">var</span> screen = <span class="sc-fn">world_to_screen</span>(loc.x, loc.y, loc.z);
+            <span class="sc-kw">if</span> (screen && center) {
+                <span class="sc-fn">draw_line</span>(center.x, center.y, screen.x, screen.y, <span class="sc-num">0</span>, <span class="sc-num">255</span>, <span class="sc-num">0</span>, <span class="sc-num">150</span>, <span class="sc-num">1.0</span>);
+            }
+        }
+    }
 }</code></pre>
                         </div>
                     </div>
