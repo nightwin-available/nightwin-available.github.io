@@ -584,6 +584,20 @@
                         <span data-lang-en>Methods to interact with actors, entity structures and players.</span>
                     </p>
                     <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">get_objects</span><span class="fn-args">()</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Возвращает массив указателей на все объекты (акторы) в мире.</span>
+                            <span data-lang-en>Returns an array of pointers to all objects (actors) in the world.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">get_object_name</span><span class="fn-args">(obj)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Возвращает имя объекта или актора по его указателю.</span>
+                            <span data-lang-en>Returns the name of the object or actor by its pointer.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
                         <div class="api-signature"><span class="fn-name">get_local_player</span><span class="fn-args">()</span></div>
                         <div class="api-desc">
                             <span data-lang-ru>Возвращает указатель на локального игрока или <code class="sc-kw">null</code>.</span>
@@ -712,6 +726,30 @@
                         <span data-lang-ru>Готовые структурированные мини-модули и полезные скрипты.</span>
                         <span data-lang-en>Pre-made structured script snippets and configurations.</span>
                     </p>
+
+                    <div class="example-card">
+                        <h3><i class="fa-solid fa-skull"></i> Carcass Finder ESP</h3>
+                        <div class="code-container">
+                            <button class="copy-btn" title="Копировать / Copy"><i class="fa-regular fa-copy"></i></button>
+                            <pre><code><span class="sc-kw">function</span> <span class="sc-fn">on_render</span>() {
+    <span class="sc-kw">if</span> (!<span class="sc-fn">is_game_ready</span>()) <span class="sc-kw">return</span>;
+    <span class="sc-kw">var</span> objects = <span class="sc-fn">get_objects</span>();
+    <span class="sc-kw">for</span> (<span class="sc-kw">var</span> i = <span class="sc-num">0</span>; i < objects.length; i++) {
+        <span class="sc-kw">var</span> obj = objects[i];
+        <span class="sc-kw">var</span> name = <span class="sc-fn">get_object_name</span>(obj);
+        <span class="sc-kw">if</span> (name.indexOf(<span class="sc-str">"Carcass"</span>) !== -<span class="sc-num">1</span>) {
+            <span class="sc-kw">var</span> loc = <span class="sc-fn">get_location</span>(obj);
+            <span class="sc-kw">if</span> (loc) {
+                <span class="sc-kw">var</span> screen = <span class="sc-fn">world_to_screen</span>(loc.x, loc.y, loc.z);
+                <span class="sc-kw">if</span> (screen) {
+                    <span class="sc-fn">draw_text</span>(screen.x, screen.y, <span class="sc-num">255</span>, <span class="sc-num">255</span>, <span class="sc-num">255</span>, <span class="sc-num">255</span>, name);
+                }
+            }
+        }
+    }
+}</code></pre>
+                        </div>
+                    </div>
                     
                     <div class="example-card">
                         <h3><i class="fa-solid fa-crosshairs"></i> Render Target (ESP)</h3>
@@ -770,7 +808,6 @@
 
 <span class="sc-kw">function</span> <span class="sc-fn">on_render</span>() {
     <span class="sc-kw">if</span> (<span class="sc-fn">get_ui_value</span>(<span class="sc-str">"Render name"</span>)) {
-        <span class="sc-cm" data-lang-ru>// Сюда вставляется логика отображения, привязанная к меню</span><span class="sc-cm" data-lang-en>// Insert menu-bound rendering logic here</span>
     }
 }</code></pre>
                         </div>
@@ -789,9 +826,6 @@
     <span class="sc-kw">var</span> character = <span class="sc-fn">get_property</span>(controller, <span class="sc-str">"Character"</span>);
     <span class="sc-kw">var</span> pawn = <span class="sc-fn">get_property</span>(controller, <span class="sc-str">"Pawn"</span>);
     <span class="sc-kw">var</span> playerState = <span class="sc-fn">get_property</span>(controller, <span class="sc-str">"PlayerState"</span>);
-
-    <span class="sc-cm" data-lang-ru>// А дальше думайте сами что вы можете сделать ;)</span>
-    <span class="sc-cm" data-lang-en>// Now it's up to you what you can do ;)</span>
 }</code></pre>
                         </div>
                     </div>
