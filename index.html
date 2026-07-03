@@ -651,8 +651,8 @@
                 <section id="ui" class="tab-panel">
                     <h2>UI Management</h2>
                     <p class="tab-desc">
-                        <span data-lang-ru>Управление встроенным меню софта.</span>
-                        <span data-lang-en>Menu interaction, checkbox creations and layout bindings.</span>
+                        <span data-lang-ru>Управление встроенным меню софта, создание вкладок и интерактивных элементов.</span>
+                        <span data-lang-en>Menu interaction, tab creations, sliders, comboboxes and layout bindings.</span>
                     </p>
                     <div class="api-card">
                         <div class="api-signature"><span class="fn-name">register_tab</span><span class="fn-args">(name)</span></div>
@@ -665,21 +665,42 @@
                         <div class="api-signature"><span class="fn-name">register_section</span><span class="fn-args">(tab_name, section_name)</span></div>
                         <div class="api-desc">
                             <span data-lang-ru>Создает подсекцию внутри вкладки.</span>
-                            <span data-lang-en>Creates a sub-section (sub-tab) inside a tab.</span>
+                            <span data-lang-en>Creates a sub-section inside a tab.</span>
                         </div>
                     </div>
                     <div class="api-card">
                         <div class="api-signature"><span class="fn-name">add_checkbox</span><span class="fn-args">(tab_name, section_name, label, default_value)</span></div>
                         <div class="api-desc">
-                            <span data-lang-ru>Добавляет интерактивный чекбокс.</span>
-                            <span data-lang-en>Adds a custom checkbox setting element.</span>
+                            <span data-lang-ru>Добавляет интерактивный чекбокс (<code class="sc-kw">boolean</code>).</span>
+                            <span data-lang-en>Adds a custom checkbox setting element (<code class="sc-kw">boolean</code>).</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">add_slider</span><span class="fn-args">(tab_name, section_name, label, default, min, max)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Добавляет ползунок для выбора числовых значений с плавающей запятой (<code class="sc-kw">number</code>).</span>
+                            <span data-lang-en>Adds a slider for numerical configuration (<code class="sc-kw">number</code>).</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">add_combo</span><span class="fn-args">(tab_name, section_name, label, default_index, items_array)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Добавляет выпадающий список вариантов. Возвращает индекс выбранного элемента (<code class="sc-kw">number</code>).</span>
+                            <span data-lang-en>Adds a dropdown selection element. Returns selected element index (<code class="sc-kw">number</code>).</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">add_colorpicker</span><span class="fn-args">(tab_name, section_name, label, r, g, b, a)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Добавляет палитру выбора цвета. Возвращает объект вида <code class="sc-str">{r, g, b, a}</code>.</span>
+                            <span data-lang-en>Adds an interactive color picker element. Returns a color object <code class="sc-str">{r, g, b, a}</code>.</span>
                         </div>
                     </div>
                     <div class="api-card">
                         <div class="api-signature"><span class="fn-name">get_ui_value</span><span class="fn-args">(label)</span></div>
                         <div class="api-desc">
-                            <span data-lang-ru>Возвращает текущее состояние элемента UI (<code class="sc-kw">true</code>/<code class="sc-kw">false</code>).</span>
-                            <span data-lang-en>Returns the current value (<code class="sc-kw">true</code>/<code class="sc-kw">false</code>) of a UI element.</span>
+                            <span data-lang-ru>Возвращает текущее состояние элемента UI в зависимости от его типа.</span>
+                            <span data-lang-en>Returns the current value of a UI element depending on its type.</span>
                         </div>
                     </div>
                 </section>
@@ -802,12 +823,55 @@
                         <h3><i class="fa-solid fa-window-maximize"></i> Render UI & Menu Bindings</h3>
                         <div class="code-container">
                             <button class="copy-btn" title="Копировать / Copy"><i class="fa-regular fa-copy"></i></button>
-                            <pre><code><span class="sc-fn">register_tab</span>(<span class="sc-str">"night"</span>);
-<span class="sc-fn">register_section</span>(<span class="sc-str">"night"</span>, <span class="sc-str">"test"</span>);
-<span class="sc-fn">add_checkbox</span>(<span class="sc-str">"night"</span>, <span class="sc-str">"test"</span>, <span class="sc-str">"Render name"</span>, <span class="sc-kw">false</span>);
+                            <pre><code><span class="sc-fn">register_tab</span>(<span class="sc-str">"My Custom ESP"</span>);
+<span class="sc-fn">register_section</span>(<span class="sc-str">"My Custom ESP"</span>, <span class="sc-str">"Settings"</span>);
+
+<span class="sc-fn">add_checkbox</span>(<span class="sc-str">"My Custom ESP"</span>, <span class="sc-str">"Settings"</span>, <span class="sc-str">"Enable ESP"</span>, <span class="sc-kw">true</span>);
+<span class="sc-fn">add_slider</span>(<span class="sc-str">"My Custom ESP"</span>, <span class="sc-str">"Settings"</span>, <span class="sc-str">"Max Distance"</span>, <span class="sc-num">150.0</span>, <span class="sc-num">10.0</span>, <span class="sc-num">500.0</span>);
+<span class="sc-fn">add_combo</span>(<span class="sc-str">"My Custom ESP"</span>, <span class="sc-str">"Settings"</span>, <span class="sc-str">"ESP Type"</span>, <span class="sc-num">0</span>, [<span class="sc-str">"2D Box"</span>, <span class="sc-str">"3D Circle"</span>, <span class="sc-str">"Text Only"</span>]);
+<span class="sc-fn">add_colorpicker</span>(<span class="sc-str">"My Custom ESP"</span>, <span class="sc-str">"Settings"</span>, <span class="sc-str">"Visual Color"</span>, <span class="sc-num">255</span>, <span class="sc-num">255</span>, <span class="sc-num">0</span>, <span class="sc-num">255</span>);
 
 <span class="sc-kw">function</span> <span class="sc-fn">on_render</span>() {
-    <span class="sc-kw">if</span> (<span class="sc-fn">get_ui_value</span>(<span class="sc-str">"Render name"</span>)) {
+    <span class="sc-kw">if</span> (!<span class="sc-fn">is_game_ready</span>()) <span class="sc-kw">return</span>;
+
+    <span class="sc-kw">var</span> isEnabled = <span class="sc-fn">get_ui_value</span>(<span class="sc-str">"Enable ESP"</span>);
+    <span class="sc-kw">var</span> maxDist = <span class="sc-fn">get_ui_value</span>(<span class="sc-str">"Max Distance"</span>);
+    <span class="sc-kw">var</span> espTypeIndex = <span class="sc-fn">get_ui_value</span>(<span class="sc-str">"ESP Type"</span>);
+    <span class="sc-kw">var</span> clr = <span class="sc-fn">get_ui_value</span>(<span class="sc-str">"Visual Color"</span>);
+
+    <span class="sc-kw">if</span> (!isEnabled) <span class="sc-kw">return</span>;
+
+    <span class="sc-kw">var</span> targets = <span class="sc-fn">get_targets</span>();
+    <span class="sc-kw">var</span> me = <span class="sc-fn">get_local_player</span>();
+    <span class="sc-kw">if</span> (!me) <span class="sc-kw">return</span>;
+    
+    <span class="sc-kw">var</span> myLoc = <span class="sc-fn">get_location</span>(me);
+    <span class="sc-kw">if</span> (!myLoc) <span class="sc-kw">return</span>;
+
+    <span class="sc-kw">for</span> (<span class="sc-kw">var</span> i = <span class="sc-num">0</span>; i < targets.length; i++) {
+        <span class="sc-kw">var</span> actor = targets[i];
+        <span class="sc-kw">if</span> (actor === me) <span class="sc-kw">continue</span>;
+
+        <span class="sc-kw">var</span> loc = <span class="sc-fn">get_location</span>(actor);
+        <span class="sc-kw">if</span> (!loc) <span class="sc-kw">continue</span>;
+
+        <span class="sc-kw">var</span> dx = loc.x - myLoc.x;
+        <span class="sc-kw">var</span> dy = loc.y - myLoc.y;
+        <span class="sc-kw">var</span> dz = loc.z - myLoc.z;
+        <span class="sc-kw">var</span> distMeters = Math.<span class="sc-fn">sqrt</span>(dx*dx + dy*dy + dz*dz) / <span class="sc-num">100</span>;
+
+        <span class="sc-kw">if</span> (distMeters > maxDist) <span class="sc-kw">continue</span>;
+
+        <span class="sc-kw">var</span> screen = <span class="sc-fn">world_to_screen</span>(loc.x, loc.y, loc.z);
+        <span class="sc-kw">if</span> (!screen) <span class="sc-kw">continue</span>;
+
+        <span class="sc-kw">var</span> name = <span class="sc-fn">get_name</span>(actor);
+
+        <span class="sc-kw">if</span> (espTypeIndex === <span class="sc-num">1</span>) {
+            <span class="sc-fn">draw_circle_3d</span>(loc.x, loc.y, loc.z, <span class="sc-num">50.0</span>, clr.r, clr.g, clr.b, clr.a, <span class="sc-num">16</span>);
+        }
+        
+        <span class="sc-fn">draw_text</span>(screen.x, screen.y, clr.r, clr.g, clr.b, clr.a, name + <span class="sc-str">" ["</span> + Math.<span class="sc-fn">floor</span>(distMeters) + <span class="sc-str">"m]"</span>);
     }
 }</code></pre>
                         </div>
