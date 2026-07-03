@@ -435,6 +435,21 @@
             color: var(--text-muted);
         }
 
+        .types-list {
+            margin-top: 10px;
+            padding-left: 20px;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .types-list code {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--syntax-keyword);
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
         .sc-kw { color: var(--syntax-keyword); }
         .sc-fn { color: var(--syntax-fn); }
         .sc-str { color: var(--syntax-str); }
@@ -457,6 +472,7 @@
                 <li><button class="tab-btn" data-tab="objects"><i class="fa-solid fa-users"></i> Game Objects</button></li>
                 <li><button class="tab-btn" data-tab="ui"><i class="fa-solid fa-window-restore"></i> UI Management</button></li>
                 <li><button class="tab-btn" data-tab="advanced"><i class="fa-solid fa-gears"></i> Advanced SDK</button></li>
+                <li><button class="tab-btn" data-tab="native-ffi"><i class="fa-solid fa-terminal"></i> Native FFI</button></li>
                 <li><button class="tab-btn" data-tab="examples"><i class="fa-solid fa-code"></i> Examples</button></li>
             </ul>
         </aside>
@@ -741,12 +757,85 @@
                     </div>
                 </section>
 
+                <section id="native-ffi" class="tab-panel">
+                    <h2>Native FFI</h2>
+                    <p class="tab-desc">
+                        <span data-lang-ru>Динамический Foreign Function Interface (FFI) для прямого взаимодействия с Windows API подсистемами.</span>
+                        <span data-lang-en>Dynamic Foreign Function Interface (FFI) to interact directly with low-level Windows API subsystems.</span>
+                    </p>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">native.define</span><span class="fn-args">(name, dll, function, returnType, ...argTypes)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Регистрирует внешнюю C-функцию из указанной DLL библиотеки для последующего вызова.</span>
+                            <span data-lang-en>Registers an exported C-function from a specified DLL library for subsequent execution.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">native.call</span><span class="fn-args">(name, ...args)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Вызывает ранее определенную Windows API функцию по её зарегистрированному имени.</span>
+                            <span data-lang-en>Invokes a previously defined Windows API function by its registered configuration name.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature">Supported Types / Поддерживаемые типы данных</div>
+                        <div class="api-desc">
+                            <span data-lang-ru>При связывании аргументов и возвращаемых значений используйте строго следующие строковые типы:</span>
+                            <span data-lang-en>When mapping arguments and return types, strictly use the following syntax values:</span>
+                            <ul class="types-list">
+                                <li><code>"void"</code> - <span data-lang-ru>отсутствие возвращаемого значения</span><span data-lang-en>no return value</span></li>
+                                <li><code>"int"</code> - <span data-lang-ru>целочисленное значение типа int</span><span data-lang-en>standard integer values</span></li>
+                                <li><code>"ptr"</code> / <code>"pointer"</code> - <span data-lang-ru>указатели на области памяти или структуры</span><span data-lang-en>memory addresses and pointers</span></li>
+                                <li><code>"string"</code> / <code>"str"</code> - <span data-lang-ru>строковые значения (C-style char pointer)</span><span data-lang-en>string sequences</span></li>
+                                <li><code>"float"</code> - <span data-lang-ru>число с плавающей точкой (одинарная точность)</span><span data-lang-en>floating point numbers</span></li>
+                                <li><code>"double"</code> - <span data-lang-ru>число с плавающей точкой (двойная точность)</span><span data-lang-en>double precision floats</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
                 <section id="examples" class="tab-panel">
                     <h2>Examples</h2>
                     <p class="tab-desc">
                         <span data-lang-ru>Готовые структурированные мини-модули и полезные скрипты.</span>
                         <span data-lang-en>Pre-made structured script snippets and configurations.</span>
                     </p>
+
+                    <div class="example-card">
+                        <h3><i class="fa-solid fa-terminal"></i> Native Windows API FFI Usage</h3>
+                        <div class="code-container">
+                            <button class="copy-btn" title="Копировать / Copy"><i class="fa-regular fa-copy"></i></button>
+                            <pre><code><span class="sc-fn">native.define</span>(<span class="sc-str">"MessageBoxA"</span>, <span class="sc-str">"user32.dll"</span>, <span class="sc-str">"MessageBoxA"</span>, <span class="sc-str">"int"</span>, <span class="sc-str">"ptr"</span>, <span class="sc-str">"string"</span>, <span class="sc-str">"string"</span>, <span class="sc-str">"int"</span>);
+<span class="sc-fn">native.define</span>(<span class="sc-str">"Beep"</span>, <span class="sc-str">"kernel32.dll"</span>, <span class="sc-str">"Beep"</span>, <span class="sc-str">"int"</span>, <span class="sc-str">"int"</span>, <span class="sc-str">"int"</span>);
+<span class="sc-fn">native.define</span>(<span class="sc-str">"Sleep"</span>, <span class="sc-str">"kernel32.dll"</span>, <span class="sc-str">"Sleep"</span>, <span class="sc-str">"void"</span>, <span class="sc-str">"int"</span>);
+<span class="sc-fn">native.define</span>(<span class="sc-str">"GetTickCount"</span>, <span class="sc-str">"kernel32.dll"</span>, <span class="sc-str">"GetTickCount"</span>, <span class="sc-str">"int"</span>);
+
+<span class="sc-kw">function</span> <span class="sc-fn">showMessage</span>(text, title) {
+    <span class="sc-kw">return</span> <span class="sc-fn">native.call</span>(<span class="sc-str">"MessageBoxA"</span>, <span class="sc-kw">null</span>, text, title, <span class="sc-num">0</span>);
+}
+
+<span class="sc-kw">function</span> <span class="sc-fn">playBeep</span>(freq, duration) {
+    <span class="sc-fn">native.call</span>(<span class="sc-str">"Beep"</span>, freq, duration);
+}
+
+<span class="sc-kw">function</span> <span class="sc-fn">sleep</span>(ms) {
+    <span class="sc-fn">native.call</span>(<span class="sc-str">"Sleep"</span>, ms);
+}
+
+<span class="sc-kw">function</span> <span class="sc-fn">getTickCount</span>() {
+    <span class="sc-kw">return</span> <span class="sc-fn">native.call</span>(<span class="sc-str">"GetTickCount"</span>);
+}
+
+<span class="sc-fn">showMessage</span>(<span class="sc-str">"Hello from native FFI!"</span>, <span class="sc-str">"Test"</span>);
+
+<span class="sc-fn">playBeep</span>(<span class="sc-num">1000</span>, <span class="sc-num">200</span>);
+
+<span class="sc-kw">function</span> <span class="sc-fn">on_render</span>() {
+    <span class="sc-kw">var</span> ticks = <span class="sc-fn">getTickCount</span>();
+    <span class="sc-fn">draw_text</span>(<span class="sc-num">10</span>, <span class="sc-num">140</span>, <span class="sc-num">255</span>, <span class="sc-num">255</span>, <span class="sc-num">0</span>, <span class="sc-num">255</span>, <span class="sc-str">"System ticks: "</span> + ticks);
+}</code></pre>
+                        </div>
+                    </div>
 
                     <div class="example-card">
                         <h3><i class="fa-solid fa-skull"></i> Carcass Finder ESP</h3>
@@ -846,7 +935,7 @@
     <span class="sc-kw">if</span> (!me) <span class="sc-kw">return</span>;
     
     <span class="sc-kw">var</span> myLoc = <span class="sc-fn">get_location</span>(me);
-    <span class="sc-kw">if</span> (!myLoc) <span class="sc-kw">return</span>;
+    <span class="sc-kw">if</span> (!myLoc) <span class="sc-kw">continue</span>;
 
     <span class="sc-kw">for</span> (<span class="sc-kw">var</span> i = <span class="sc-num">0</span>; i < targets.length; i++) {
         <span class="sc-kw">var</span> actor = targets[i];
@@ -1097,3 +1186,4 @@
     </script>
 </body>
 </html>
+</code>
