@@ -471,6 +471,7 @@
                 <li><button class="tab-btn" data-tab="drawing"><i class="fa-solid fa-palette"></i> Drawing</button></li>
                 <li><button class="tab-btn" data-tab="objects"><i class="fa-solid fa-users"></i> Game Objects</button></li>
                 <li><button class="tab-btn" data-tab="ui"><i class="fa-solid fa-window-restore"></i> UI Management</button></li>
+                <li><button class="tab-btn" data-tab="images"><i class="fa-solid fa-image"></i> Images</button></li>
                 <li><button class="tab-btn" data-tab="advanced"><i class="fa-solid fa-gears"></i> Advanced SDK</button></li>
                 <li><button class="tab-btn" data-tab="native-ffi"><i class="fa-solid fa-terminal"></i> Native FFI</button></li>
                 <li><button class="tab-btn" data-tab="examples"><i class="fa-solid fa-code"></i> Examples</button></li>
@@ -589,6 +590,69 @@
                         <div class="api-desc">
                             <span data-lang-ru>Возвращает 3D координаты камеры <code class="sc-str">{x, y, z}</code>.</span>
                             <span data-lang-en>Returns the 3D coordinates of the camera <code class="sc-str">{x, y, z}</code>.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">render.screen_size</span><span class="fn-args">()</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Возвращает размер экрана <code class="sc-str">{x, y}</code>.</span>
+                            <span data-lang-en>Returns screen size <code class="sc-str">{x, y}</code>.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">render.camera_angles</span><span class="fn-args">([angles])</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Получить/установить углы камеры. Без аргументов возвращает <code class="sc-str">{pitch, yaw, roll}</code>. С объектом — устанавливает.</span>
+                            <span data-lang-en>Get/set camera angles. Returns <code class="sc-str">{pitch, yaw, roll}</code> or sets if object passed.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">render.measure_text</span><span class="fn-args">(text[, font_size])</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Возвращает размер текста <code class="sc-str">{width, height}</code>.</span>
+                            <span data-lang-en>Returns text dimensions <code class="sc-str">{width, height}</code>.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">render.push_clip_rect</span><span class="fn-args">(x1, y1, x2, y2[, intersect])</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Начинает обрезку области рисования.</span>
+                            <span data-lang-en>Begins a clipping rectangle for drawing.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">render.pop_clip_rect</span><span class="fn-args">()</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Завершает обрезку области рисования.</span>
+                            <span data-lang-en>Ends the current clipping rectangle.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">render.gradient</span><span class="fn-args">(x1,y1,x2,y2, tr,tg,tb,ta, tl_r,tl_g,tl_b,tl_a, bl_r,bl_g,bl_b,bl_a, br_r,br_g,br_b,br_a)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Рисует прямоугольник с градиентом из 4 цветов по углам (top-right, top-left, bottom-left, bottom-right).</span>
+                            <span data-lang-en>Draws a rectangle with 4-color gradient at corners (top-right, top-left, bottom-left, bottom-right).</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">render.circle_outline</span><span class="fn-args">(x, y, radius, r, g, b, a, segments[, thickness])</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Рисует контур круга с указанной толщиной.</span>
+                            <span data-lang-en>Draws a circle outline with custom thickness.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">render.poly_line</span><span class="fn-args">(r, g, b, a, thickness, points_array)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Рисует ломаную линию через массив точек <code class="sc-str">[{x,y}, ...]</code>.</span>
+                            <span data-lang-en>Draws a polyline through an array of points <code class="sc-str">[{x,y}, ...]</code>.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">render.poly</span><span class="fn-args">(r, g, b, a, points_array)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Рисует залитый полигон через массив точек <code class="sc-str">[{x,y}, ...]</code>.</span>
+                            <span data-lang-en>Draws a filled polygon through an array of points <code class="sc-str">[{x,y}, ...]</code>.</span>
                         </div>
                     </div>
                 </section>
@@ -735,6 +799,35 @@
                     </div>
                 </section>
 
+                <section id="images" class="tab-panel">
+                    <h2>Images</h2>
+                    <p class="tab-desc">
+                        <span data-lang-ru>Загрузка и отрисовка пользовательских изображений через D3D11 текстуры.</span>
+                        <span data-lang-en>Loading and rendering custom images via D3D11 textures.</span>
+                    </p>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">load_image</span><span class="fn-args">(buffer, width, height)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Создаёт текстуру из RGBA8 байтов (ArrayBuffer). Возвращает указатель на текстуру или <code class="sc-kw">null</code>. Формат: 4 байта на пиксель (R, G, B, A).</span>
+                            <span data-lang-en>Creates a D3D11 texture from RGBA8 bytes (ArrayBuffer). Returns texture pointer or <code class="sc-kw">null</code>. Format: 4 bytes per pixel (R, G, B, A).</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">draw_image</span><span class="fn-args">(tex_id, x, y, w, h)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Отрисовывает загруженную текстуру на экране.</span>
+                            <span data-lang-en>Renders a loaded texture on screen.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">free_image</span><span class="fn-args">(tex_id)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Освобождает память текстуры. Вызывайте при выгрузке скрипта.</span>
+                            <span data-lang-en>Releases texture memory. Call when unloading script.</span>
+                        </div>
+                    </div>
+                </section>
+
                 <section id="advanced" class="tab-panel">
                     <h2>Advanced SDK API</h2>
                     <p class="tab-desc">
@@ -767,6 +860,24 @@
                         <div class="api-desc">
                             <span data-lang-ru>Записывает значение в любую переменную объекта.</span>
                             <span data-lang-en>Writes a value to any object variable.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature">Supported Property Types / Поддерживаемые типы свойств</div>
+                        <div class="api-desc">
+                            <span data-lang-ru><code class="sc-fn">get_property</code> и <code class="sc-fn">set_property</code> поддерживают все типы свойств Unreal Engine:</span>
+                            <span data-lang-en><code class="sc-fn">get_property</code> and <code class="sc-fn">set_property</code> support all Unreal Engine property types:</span>
+                            <ul class="types-list">
+                                <li><code>FloatProperty</code>, <code>DoubleProperty</code> - <span data-lang-ru>числа с плавающей точкой</span><span data-lang-en>floating point numbers</span> → <code>number</code></li>
+                                <li><code>Int8/16/32/64Property</code>, <code>UInt16/32/64Property</code>, <code>ByteProperty</code> - <span data-lang-ru>целочисленные типы</span><span data-lang-en>integer types</span> → <code>number</code></li>
+                                <li><code>BoolProperty</code> - <span data-lang-ru>логическое значение</span><span data-lang-en>boolean</span> → <code>boolean</code></li>
+                                <li><code>NameProperty</code> (FName), <code>StrProperty</code> (FString), <code>TextProperty</code> (FText) - <span data-lang-ru>строки</span><span data-lang-en>strings</span> → <code>string</code></li>
+                                <li><code>EnumProperty</code> - <span data-lang-ru>перечисление (по underlying типу)</span><span data-lang-en>enum (via underlying type)</span> → <code>number</code></li>
+                                <li><code>ObjectProperty</code>, <code>ClassProperty</code>, <code>WeakObjectProperty</code>, <code>SoftObjectProperty</code>, <code>InterfaceProperty</code> - <span data-lang-ru>указатели на объекты</span><span data-lang-en>object pointers</span> → <code>pointer</code> / <code>null</code></li>
+                                <li><code>StructProperty</code> - <span data-lang-ru>структуры (Vector, Rotator, Color, Transform и любые другие — рекурсивно по полям)</span><span data-lang-en>structs (Vector, Rotator, Color, Transform and any other — recursively by fields)</span> → <code>object</code></li>
+                                <li><code>ArrayProperty</code> - <span data-lang-ru>массивы (TArray, элементы рекурсивно распаковываются)</span><span data-lang-en>arrays (TArray, elements unpacked recursively)</span> → <code>Array</code></li>
+                                <li><span data-lang-ru>Неизвестные типы</span><span data-lang-en>Unknown types</span> → <code>ArrayBuffer</code> (<span data-lang-ru>сырые байты</span><span data-lang-en>raw bytes</span>)</li>
+                            </ul>
                         </div>
                     </div>
                 </section>
@@ -905,6 +1016,51 @@
             }
         }
     }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <h3><i class="fa-solid fa-image"></i> Custom Image & Render API</h3>
+                        <div class="code-container">
+                            <button class="copy-btn" title="Копировать / Copy"><i class="fa-regular fa-copy"></i></button>
+                            <pre><code><span class="sc-kw">var</span> myTexture = <span class="sc-kw">null</span>;
+
+<span class="sc-kw">function</span> <span class="sc-fn">on_render</span>() {
+    <span class="sc-kw">if</span> (!<span class="sc-fn">is_game_ready</span>()) <span class="sc-kw">return</span>;
+
+    <span class="sc-kw">if</span> (!myTexture) {
+        <span class="sc-kw">var</span> buf = <span class="sc-kw">new</span> ArrayBuffer(<span class="sc-num">64</span> * <span class="sc-num">64</span> * <span class="sc-num">4</span>);
+        <span class="sc-kw">var</span> pixels = <span class="sc-kw">new</span> Uint8Array(buf);
+        <span class="sc-kw">for</span> (<span class="sc-kw">var</span> i = <span class="sc-num">0</span>; i < pixels.length; i += <span class="sc-num">4</span>) {
+            pixels[i] = <span class="sc-num">59</span>;
+            pixels[i + <span class="sc-num">1</span>] = <span class="sc-num">130</span>;
+            pixels[i + <span class="sc-num">2</span>] = <span class="sc-num">246</span>;
+            pixels[i + <span class="sc-num">3</span>] = <span class="sc-num">255</span>;
+        }
+        myTexture = <span class="sc-fn">load_image</span>(buf, <span class="sc-num">64</span>, <span class="sc-num">64</span>);
+    }
+
+    <span class="sc-kw">if</span> (myTexture) {
+        <span class="sc-fn">render.texture</span>(myTexture, <span class="sc-num">100</span>, <span class="sc-num">100</span>, <span class="sc-num">64</span>, <span class="sc-num">64</span>);
+    }
+
+    <span class="sc-kw">var</span> size = <span class="sc-fn">render.screen_size</span>();
+    <span class="sc-fn">render.text</span>(<span class="sc-num">10</span>, <span class="sc-num">10</span>, <span class="sc-num">255</span>, <span class="sc-num">255</span>, <span class="sc-num">255</span>, <span class="sc-num">255</span>, <span class="sc-str">"Screen: "</span> + size.x + <span class="sc-str">"x"</span> + size.y);
+
+    <span class="sc-kw">var</span> angles = <span class="sc-fn">render.camera_angles</span>();
+    <span class="sc-fn">render.text</span>(<span class="sc-num">10</span>, <span class="sc-num">30</span>, <span class="sc-num">255</span>, <span class="sc-num">255</span>, <span class="sc-num">0</span>, <span class="sc-num">255</span>, <span class="sc-str">"Yaw: "</span> + angles.yaw);
+
+    <span class="sc-fn">render.push_clip_rect</span>(<span class="sc-num">50</span>, <span class="sc-num">50</span>, <span class="sc-num">300</span>, <span class="sc-num">300</span>);
+    <span class="sc-fn">render.gradient</span>(<span class="sc-num">50</span>, <span class="sc-num">50</span>, <span class="sc-num">300</span>, <span class="sc-num">300</span>,
+        <span class="sc-num">255</span>, <span class="sc-num">0</span>, <span class="sc-num">0</span>, <span class="sc-num">255</span>,
+        <span class="sc-num">0</span>, <span class="sc-num">255</span>, <span class="sc-num">0</span>, <span class="sc-num">255</span>,
+        <span class="sc-num">0</span>, <span class="sc-num">0</span>, <span class="sc-num">255</span>, <span class="sc-num">255</span>,
+        <span class="sc-num">255</span>, <span class="sc-num">255</span>, <span class="sc-num">0</span>, <span class="sc-num">255</span>);
+    <span class="sc-fn">render.pop_clip_rect</span>();
+
+    <span class="sc-kw">var</span> pts = [{x:<span class="sc-num">400</span>,y:<span class="sc-num">100</span>}, {x:<span class="sc-num">500</span>,y:<span class="sc-num">100</span>}, {x:<span class="sc-num">450</span>,y:<span class="sc-num">200</span>}];
+    <span class="sc-fn">render.poly_line</span>(<span class="sc-num">255</span>, <span class="sc-num">255</span>, <span class="sc-num">255</span>, <span class="sc-num">255</span>, <span class="sc-num">2.0</span>, pts);
 }</code></pre>
                         </div>
                     </div>
