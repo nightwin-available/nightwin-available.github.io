@@ -593,63 +593,63 @@
                         </div>
                     </div>
                     <div class="api-card">
-                        <div class="api-signature"><span class="fn-name">render.screen_size</span><span class="fn-args">()</span></div>
+                        <div class="api-signature"><span class="fn-name">screen_size</span><span class="fn-args">()</span></div>
                         <div class="api-desc">
                             <span data-lang-ru>Возвращает размер экрана <code class="sc-str">{x, y}</code>.</span>
                             <span data-lang-en>Returns screen size <code class="sc-str">{x, y}</code>.</span>
                         </div>
                     </div>
                     <div class="api-card">
-                        <div class="api-signature"><span class="fn-name">render.camera_angles</span><span class="fn-args">([angles])</span></div>
+                        <div class="api-signature"><span class="fn-name">camera_angles</span><span class="fn-args">([angles])</span></div>
                         <div class="api-desc">
                             <span data-lang-ru>Получить/установить углы камеры. Без аргументов возвращает <code class="sc-str">{pitch, yaw, roll}</code>. С объектом — устанавливает.</span>
                             <span data-lang-en>Get/set camera angles. Returns <code class="sc-str">{pitch, yaw, roll}</code> or sets if object passed.</span>
                         </div>
                     </div>
                     <div class="api-card">
-                        <div class="api-signature"><span class="fn-name">render.measure_text</span><span class="fn-args">(text[, font_size])</span></div>
+                        <div class="api-signature"><span class="fn-name">measure_text</span><span class="fn-args">(text[, font_size])</span></div>
                         <div class="api-desc">
                             <span data-lang-ru>Возвращает размер текста <code class="sc-str">{width, height}</code>.</span>
                             <span data-lang-en>Returns text dimensions <code class="sc-str">{width, height}</code>.</span>
                         </div>
                     </div>
                     <div class="api-card">
-                        <div class="api-signature"><span class="fn-name">render.push_clip_rect</span><span class="fn-args">(x1, y1, x2, y2[, intersect])</span></div>
+                        <div class="api-signature"><span class="fn-name">push_clip_rect</span><span class="fn-args">(x1, y1, x2, y2[, intersect])</span></div>
                         <div class="api-desc">
                             <span data-lang-ru>Начинает обрезку области рисования.</span>
                             <span data-lang-en>Begins a clipping rectangle for drawing.</span>
                         </div>
                     </div>
                     <div class="api-card">
-                        <div class="api-signature"><span class="fn-name">render.pop_clip_rect</span><span class="fn-args">()</span></div>
+                        <div class="api-signature"><span class="fn-name">pop_clip_rect</span><span class="fn-args">()</span></div>
                         <div class="api-desc">
                             <span data-lang-ru>Завершает обрезку области рисования.</span>
                             <span data-lang-en>Ends the current clipping rectangle.</span>
                         </div>
                     </div>
                     <div class="api-card">
-                        <div class="api-signature"><span class="fn-name">render.gradient</span><span class="fn-args">(x1,y1,x2,y2, tr,tg,tb,ta, tl_r,tl_g,tl_b,tl_a, bl_r,bl_g,bl_b,bl_a, br_r,br_g,br_b,br_a)</span></div>
+                        <div class="api-signature"><span class="fn-name">draw_gradient</span><span class="fn-args">(x1,y1,x2,y2, tr,tg,tb,ta, tl_r,tl_g,tl_b,tl_a, bl_r,bl_g,bl_b,bl_a, br_r,br_g,br_b,br_a)</span></div>
                         <div class="api-desc">
                             <span data-lang-ru>Рисует прямоугольник с градиентом из 4 цветов по углам (top-right, top-left, bottom-left, bottom-right).</span>
                             <span data-lang-en>Draws a rectangle with 4-color gradient at corners (top-right, top-left, bottom-left, bottom-right).</span>
                         </div>
                     </div>
                     <div class="api-card">
-                        <div class="api-signature"><span class="fn-name">render.circle_outline</span><span class="fn-args">(x, y, radius, r, g, b, a, segments[, thickness])</span></div>
+                        <div class="api-signature"><span class="fn-name">draw_circle_outline</span><span class="fn-args">(x, y, radius, r, g, b, a, segments[, thickness])</span></div>
                         <div class="api-desc">
                             <span data-lang-ru>Рисует контур круга с указанной толщиной.</span>
                             <span data-lang-en>Draws a circle outline with custom thickness.</span>
                         </div>
                     </div>
                     <div class="api-card">
-                        <div class="api-signature"><span class="fn-name">render.poly_line</span><span class="fn-args">(r, g, b, a, thickness, points_array)</span></div>
+                        <div class="api-signature"><span class="fn-name">draw_poly_line</span><span class="fn-args">(r, g, b, a, thickness, points_array)</span></div>
                         <div class="api-desc">
                             <span data-lang-ru>Рисует ломаную линию через массив точек <code class="sc-str">[{x,y}, ...]</code>.</span>
                             <span data-lang-en>Draws a polyline through an array of points <code class="sc-str">[{x,y}, ...]</code>.</span>
                         </div>
                     </div>
                     <div class="api-card">
-                        <div class="api-signature"><span class="fn-name">render.poly</span><span class="fn-args">(r, g, b, a, points_array)</span></div>
+                        <div class="api-signature"><span class="fn-name">draw_poly</span><span class="fn-args">(r, g, b, a, points_array)</span></div>
                         <div class="api-desc">
                             <span data-lang-ru>Рисует залитый полигон через массив точек <code class="sc-str">[{x,y}, ...]</code>.</span>
                             <span data-lang-en>Draws a filled polygon through an array of points <code class="sc-str">[{x,y}, ...]</code>.</span>
@@ -1042,25 +1042,25 @@
     }
 
     <span class="sc-kw">if</span> (myTexture) {
-        <span class="sc-fn">render.texture</span>(myTexture, <span class="sc-num">100</span>, <span class="sc-num">100</span>, <span class="sc-num">64</span>, <span class="sc-num">64</span>);
+        <span class="sc-fn">draw_image</span>(myTexture, <span class="sc-num">100</span>, <span class="sc-num">100</span>, <span class="sc-num">64</span>, <span class="sc-num">64</span>);
     }
 
-    <span class="sc-kw">var</span> size = <span class="sc-fn">render.screen_size</span>();
-    <span class="sc-fn">render.text</span>(<span class="sc-num">10</span>, <span class="sc-num">10</span>, <span class="sc-num">255</span>, <span class="sc-num">255</span>, <span class="sc-num">255</span>, <span class="sc-num">255</span>, <span class="sc-str">"Screen: "</span> + size.x + <span class="sc-str">"x"</span> + size.y);
+    <span class="sc-kw">var</span> size = <span class="sc-fn">screen_size</span>();
+    <span class="sc-fn">draw_text</span>(<span class="sc-num">10</span>, <span class="sc-num">10</span>, <span class="sc-num">255</span>, <span class="sc-num">255</span>, <span class="sc-num">255</span>, <span class="sc-num">255</span>, <span class="sc-str">"Screen: "</span> + size.x + <span class="sc-str">"x"</span> + size.y);
 
-    <span class="sc-kw">var</span> angles = <span class="sc-fn">render.camera_angles</span>();
-    <span class="sc-fn">render.text</span>(<span class="sc-num">10</span>, <span class="sc-num">30</span>, <span class="sc-num">255</span>, <span class="sc-num">255</span>, <span class="sc-num">0</span>, <span class="sc-num">255</span>, <span class="sc-str">"Yaw: "</span> + angles.yaw);
+    <span class="sc-kw">var</span> angles = <span class="sc-fn">camera_angles</span>();
+    <span class="sc-fn">draw_text</span>(<span class="sc-num">10</span>, <span class="sc-num">30</span>, <span class="sc-num">255</span>, <span class="sc-num">255</span>, <span class="sc-num">0</span>, <span class="sc-num">255</span>, <span class="sc-str">"Yaw: "</span> + angles.yaw);
 
-    <span class="sc-fn">render.push_clip_rect</span>(<span class="sc-num">50</span>, <span class="sc-num">50</span>, <span class="sc-num">300</span>, <span class="sc-num">300</span>);
-    <span class="sc-fn">render.gradient</span>(<span class="sc-num">50</span>, <span class="sc-num">50</span>, <span class="sc-num">300</span>, <span class="sc-num">300</span>,
+    <span class="sc-fn">push_clip_rect</span>(<span class="sc-num">50</span>, <span class="sc-num">50</span>, <span class="sc-num">300</span>, <span class="sc-num">300</span>);
+    <span class="sc-fn">draw_gradient</span>(<span class="sc-num">50</span>, <span class="sc-num">50</span>, <span class="sc-num">300</span>, <span class="sc-num">300</span>,
         <span class="sc-num">255</span>, <span class="sc-num">0</span>, <span class="sc-num">0</span>, <span class="sc-num">255</span>,
         <span class="sc-num">0</span>, <span class="sc-num">255</span>, <span class="sc-num">0</span>, <span class="sc-num">255</span>,
         <span class="sc-num">0</span>, <span class="sc-num">0</span>, <span class="sc-num">255</span>, <span class="sc-num">255</span>,
         <span class="sc-num">255</span>, <span class="sc-num">255</span>, <span class="sc-num">0</span>, <span class="sc-num">255</span>);
-    <span class="sc-fn">render.pop_clip_rect</span>();
+    <span class="sc-fn">pop_clip_rect</span>();
 
     <span class="sc-kw">var</span> pts = [{x:<span class="sc-num">400</span>,y:<span class="sc-num">100</span>}, {x:<span class="sc-num">500</span>,y:<span class="sc-num">100</span>}, {x:<span class="sc-num">450</span>,y:<span class="sc-num">200</span>}];
-    <span class="sc-fn">render.poly_line</span>(<span class="sc-num">255</span>, <span class="sc-num">255</span>, <span class="sc-num">255</span>, <span class="sc-num">255</span>, <span class="sc-num">2.0</span>, pts);
+    <span class="sc-fn">draw_poly_line</span>(<span class="sc-num">255</span>, <span class="sc-num">255</span>, <span class="sc-num">255</span>, <span class="sc-num">255</span>, <span class="sc-num">2.0</span>, pts);
 }</code></pre>
                         </div>
                     </div>
