@@ -515,11 +515,30 @@
                             <span data-lang-en>Returns <code class="sc-kw">true</code> if the game is initialized and ready.</span>
                         </div>
                     </div>
+                    <h3 style="margin-top:24px;">Callbacks</h3>
+                    <p class="tab-desc">
+                        <span data-lang-ru>Функции обратного вызова, автоматически вызываемые движком.</span>
+                        <span data-lang-en>Callback functions automatically invoked by the engine.</span>
+                    </p>
                     <div class="api-card">
                         <div class="api-signature"><span class="fn-name">on_render</span><span class="fn-args">()</span></div>
                         <div class="api-desc">
-                            <span data-lang-ru>(Callback) Определяйте эту функцию для выполнения кода каждый кадр.</span>
-                            <span data-lang-en>(Callback) Define this function to run code every frame.</span>
+                            <span data-lang-ru>Вызывается каждый кадр. Используйте для отрисовки и основной логики скрипта.</span>
+                            <span data-lang-en>Called every frame. Use for rendering and main script logic.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">on_load</span><span class="fn-args">()</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Вызывается один раз при загрузке скрипта.</span>
+                            <span data-lang-en>Called once when the script is loaded.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">on_key</span><span class="fn-args">(keycode, pressed)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Вызывается при нажатии/отпускании клавиши. <code class="sc-fn">keycode</code> — виртуальный код клавиши (VK_*), <code class="sc-fn">pressed</code> — <code class="sc-kw">true</code> если нажата, <code class="sc-kw">false</code> если отпущена. Используйте для кейбиндов в скриптах.</span>
+                            <span data-lang-en>Called on key press/release. <code class="sc-fn">keycode</code> — virtual key code (VK_*), <code class="sc-fn">pressed</code> — <code class="sc-kw">true</code> if pressed, <code class="sc-kw">false</code> if released. Use for keybinds in scripts.</span>
                         </div>
                     </div>
                 </section>
