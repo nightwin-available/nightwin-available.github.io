@@ -472,6 +472,7 @@
                 <li><button class="tab-btn" data-tab="objects"><i class="fa-solid fa-users"></i> Game Objects</button></li>
                 <li><button class="tab-btn" data-tab="ui"><i class="fa-solid fa-window-restore"></i> UI Management</button></li>
                 <li><button class="tab-btn" data-tab="images"><i class="fa-solid fa-image"></i> Images</button></li>
+                <li><button class="tab-btn" data-tab="network"><i class="fa-solid fa-globe"></i> Network</button></li>
                 <li><button class="tab-btn" data-tab="advanced"><i class="fa-solid fa-gears"></i> Advanced SDK</button></li>
                 <li><button class="tab-btn" data-tab="native-ffi"><i class="fa-solid fa-terminal"></i> Native FFI</button></li>
                 <li><button class="tab-btn" data-tab="examples"><i class="fa-solid fa-code"></i> Examples</button></li>
@@ -793,8 +794,59 @@
                     <div class="api-card">
                         <div class="api-signature"><span class="fn-name">get_ui_value</span><span class="fn-args">(label)</span></div>
                         <div class="api-desc">
-                            <span data-lang-ru>Возвращает текущее состояние элемента UI в зависимости от его типа (<code class="sc-kw">boolean</code>, <code class="sc-kw">number</code>, <code class="sc-kw">string</code> или <code class="sc-kw">object</code>).</span>
-                            <span data-lang-en>Returns the current value of a UI element depending on its type (<code class="sc-kw">boolean</code>, <code class="sc-kw">number</code>, <code class="sc-kw">string</code>, or <code class="sc-kw">object</code>).</span>
+                            <span data-lang-ru>Возвращает текущее состояние элемента UI или Config переменной меню. Работает как с кастомными вкладками, так и с основными переменными (например <code class="sc-str">"God Mode"</code>, <code class="sc-str">"Aimbot"</code>, <code class="sc-str">"Speed Hack"</code> и т.д.). Типы: <code class="sc-kw">boolean</code>, <code class="sc-kw">number</code>, <code class="sc-kw">string</code> или <code class="sc-kw">object</code>.</span>
+                            <span data-lang-en>Returns the current value of a UI element or main menu Config variable. Works with both custom tabs and built-in variables (e.g. <code class="sc-str">"God Mode"</code>, <code class="sc-str">"Aimbot"</code>, <code class="sc-str">"Speed Hack"</code>, etc.). Types: <code class="sc-kw">boolean</code>, <code class="sc-kw">number</code>, <code class="sc-kw">string</code>, or <code class="sc-kw">object</code>.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">set_ui_value</span><span class="fn-args">(label, value)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Устанавливает значение элемента UI или Config переменной меню. Позволяет программно изменять любые настройки из скрипта, включая основные переменные меню.</span>
+                            <span data-lang-en>Sets the value of a UI element or main menu Config variable. Allows programmatically changing any setting from scripts, including main menu variables.</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="http" class="tab-panel">
+                    <h2>HTTP</h2>
+                    <p class="tab-desc">
+                        <span data-lang-ru>HTTP запросы для загрузки данных из интернета прямо в скриптах.</span>
+                        <span data-lang-en>HTTP requests to fetch data from the internet directly in scripts.</span>
+                    </p>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">http.download</span><span class="fn-args">(url, method, postData, headers)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Выполняет HTTP/HTTPS запрос. <code class="sc-fn">url</code> — адрес, <code class="sc-fn">method</code> — "GET" или "POST", <code class="sc-fn">postData</code> — тело запроса (для POST), <code class="sc-fn">headers</code> — заголовки. Возвращает строку ответа или <code class="sc-kw">null</code> при ошибке.</span>
+                            <span data-lang-en>Performs an HTTP/HTTPS request. <code class="sc-fn">url</code> — target URL, <code class="sc-fn">method</code> — "GET" or "POST", <code class="sc-fn">postData</code> — body (for POST), <code class="sc-fn">headers</code> — custom headers. Returns response string or <code class="sc-kw">null</code> on error.</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="callbacks" class="tab-panel">
+                    <h2>Callbacks</h2>
+                    <p class="tab-desc">
+                        <span data-lang-ru>Функции обратного вызова, которые движок вызывает автоматически.</span>
+                        <span data-lang-en>Callback functions automatically invoked by the engine.</span>
+                    </p>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">on_render</span><span class="fn-args">()</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Вызывается каждый кадр. Используйте для отрисовки и основной логики скрипта.</span>
+                            <span data-lang-en>Called every frame. Use for rendering and main script logic.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">on_load</span><span class="fn-args">()</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Вызывается один раз при загрузке скрипта.</span>
+                            <span data-lang-en>Called once when the script is loaded.</span>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">on_key</span><span class="fn-args">(keycode, pressed)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Вызывается при нажатии/отпускании клавиши. <code class="sc-fn">keycode</code> — виртуальный код клавиши (VK_*), <code class="sc-fn">pressed</code> — <code class="sc-kw">true</code> если нажата, <code class="sc-kw">false</code> если отпущена. Используйте для кейбиндов в скриптах.</span>
+                            <span data-lang-en>Called on key press/release. <code class="sc-fn">keycode</code> — virtual key code (VK_*), <code class="sc-fn">pressed</code> — <code class="sc-kw">true</code> if pressed, <code class="sc-kw">false</code> if released. Use for keybinds in scripts.</span>
                         </div>
                     </div>
                 </section>
@@ -824,6 +876,21 @@
                         <div class="api-desc">
                             <span data-lang-ru>Освобождает память текстуры. Вызывайте при выгрузке скрипта.</span>
                             <span data-lang-en>Releases texture memory. Call when unloading script.</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="network" class="tab-panel">
+                    <h2>Network</h2>
+                    <p class="tab-desc">
+                        <span data-lang-ru>HTTP запросы для загрузки данных из сети.</span>
+                        <span data-lang-en>HTTP requests for downloading data from the network.</span>
+                    </p>
+                    <div class="api-card">
+                        <div class="api-signature"><span class="fn-name">http.download</span><span class="fn-args">(url, method, postData, headers)</span></div>
+                        <div class="api-desc">
+                            <span data-lang-ru>Выполняет HTTP запрос. <code class="sc-fn">url</code> — адрес запроса, <code class="sc-fn">method</code> — метод (по умолчанию <code class="sc-str">"GET"</code>), <code class="sc-fn">postData</code> — тело запроса для POST, <code class="sc-fn">headers</code> — дополнительные заголовки. Возвращает строку с ответом сервера или <code class="sc-kw">null</code> при ошибке.</span>
+                            <span data-lang-en>Performs an HTTP request. <code class="sc-fn">url</code> — request URL, <code class="sc-fn">method</code> — HTTP method (default <code class="sc-str">"GET"</code>), <code class="sc-fn">postData</code> — body for POST requests, <code class="sc-fn">headers</code> — additional headers. Returns response string or <code class="sc-kw">null</code> on error.</span>
                         </div>
                     </div>
                 </section>
