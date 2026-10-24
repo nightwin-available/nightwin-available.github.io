@@ -1,0 +1,1 @@
+{"name":"Weather_Effects_Interface","flags":["Static","Native","BlueprintCallable","BlueprintPure","BlueprintEvent","Net","NetServer","NetClient","NetMulticast","Exec","Const"],"items":{"IWeather_Effects_Interface_C":{"k":"BlueprintGeneratedClass","p":[],"f":[["Editor_Update","void",[],20],["Reset_Emitters","void",[],20]]}}}

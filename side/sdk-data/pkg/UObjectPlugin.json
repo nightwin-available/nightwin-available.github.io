@@ -1,0 +1,1 @@
+{"name":"UObjectPlugin","flags":["Static","Native","BlueprintCallable","BlueprintPure","BlueprintEvent","Net","NetServer","NetClient","NetMulticast","Exec","Const"],"items":{"UMyPluginObject":{"k":"Class","p":[["MyStruct","FMyPluginStruct",40,16]],"f":[]},"FMyPluginStruct":{"k":"ScriptStruct","p":[["TestString","FString",0,16]],"f":[]}}}

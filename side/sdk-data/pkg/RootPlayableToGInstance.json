@@ -1,0 +1,1 @@
+{"name":"RootPlayableToGInstance","flags":["Static","Native","BlueprintCallable","BlueprintPure","BlueprintEvent","Net","NetServer","NetClient","NetMulticast","Exec","Const"],"items":{"IRootPlayableToGInstance_C":{"k":"BlueprintGeneratedClass","p":[],"f":[["Send_Dynamic_Material_Instance_to_RP","void",[["TArray<UMaterialInstanceDynamic*>&","MatArray",0]],20]]}}}

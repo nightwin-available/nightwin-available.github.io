@@ -1,0 +1,1 @@
+{"name":"LightPropagationVolumeRuntime","flags":["Static","Native","BlueprintCallable","BlueprintPure","BlueprintEvent","Net","NetServer","NetClient","NetMulticast","Exec","Const"],"items":{"ULightPropagationVolumeBlendable":{"k":"Class","p":[["Settings","FLightPropagationVolumeSettings",48,64],["BlendWeight","float",112,4]],"f":[]}}}

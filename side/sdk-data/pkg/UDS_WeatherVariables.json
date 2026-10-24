@@ -1,0 +1,1 @@
+{"name":"UDS_WeatherVariables","flags":["Static","Native","BlueprintCallable","BlueprintPure","BlueprintEvent","Net","NetServer","NetClient","NetMulticast","Exec","Const"],"items":{"EUDS_WeatherVariables":{"u":"uint8","v":[["NewEnumerator0",0],["NewEnumerator1",1],["NewEnumerator2",2],["NewEnumerator3",3],["UDS_MAX",4]]}}}

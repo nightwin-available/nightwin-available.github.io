@@ -1,0 +1,1 @@
+{"name":"VectorReverse","flags":["Static","Native","BlueprintCallable","BlueprintPure","BlueprintEvent","Net","NetServer","NetClient","NetMulticast","Exec","Const"],"items":{"FVectorReverse":{"k":"UserDefinedStruct","p":[["Forward_4_FFEA067E44401F51AA8A7095A422E576","FVector",0,12],["inverseForward_5_0F089FBC44F3E4C4A0BD2F973D85E342","FVector",12,12]],"f":[]}}}

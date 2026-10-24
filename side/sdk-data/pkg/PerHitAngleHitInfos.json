@@ -1,0 +1,1 @@
+{"name":"PerHitAngleHitInfos","flags":["Static","Native","BlueprintCallable","BlueprintPure","BlueprintEvent","Net","NetServer","NetClient","NetMulticast","Exec","Const"],"items":{"FPerHitAngleHitInfos":{"k":"UserDefinedStruct","p":[["AngleID_2_07D3B71E4A27FE250EBDC691FA0280B7","int32",0,4],["Hits_10_4BC788134F1A0FE889F42C91B3486DEB","TArray<FHitInfos>",8,16]],"f":[]}}}

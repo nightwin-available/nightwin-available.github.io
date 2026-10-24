@@ -1,0 +1,1 @@
+{"name":"Max_Waves","flags":["Static","Native","BlueprintCallable","BlueprintPure","BlueprintEvent","Net","NetServer","NetClient","NetMulticast","Exec","Const"],"items":{"EMax_Waves":{"u":"uint8","v":[["NewEnumerator0",0],["NewEnumerator1",1],["NewEnumerator2",2],["NewEnumerator3",3],["NewEnumerator4",4],["Max_MAX",5]]}}}

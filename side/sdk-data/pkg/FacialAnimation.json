@@ -1,0 +1,1 @@
+{"name":"FacialAnimation","flags":["Static","Native","BlueprintCallable","BlueprintPure","BlueprintEvent","Net","NetServer","NetClient","NetMulticast","Exec","Const"],"items":{"UAudioCurveSourceComponent":{"k":"Class","p":[["CurveSourceBindingName","FName",2152,8],["CurveSyncOffset","float",2160,4]],"f":[]}}}

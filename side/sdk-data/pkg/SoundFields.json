@@ -1,0 +1,1 @@
+{"name":"SoundFields","flags":["Static","Native","BlueprintCallable","BlueprintPure","BlueprintEvent","Net","NetServer","NetClient","NetMulticast","Exec","Const"],"items":{"UAmbisonicsEncodingSettings":{"k":"Class","p":[["AmbisonicsOrder","int32",40,4]],"f":[]}}}

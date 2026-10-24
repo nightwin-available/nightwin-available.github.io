@@ -1,0 +1,1 @@
+{"name":"Tornado_Debris","flags":["Static","Native","BlueprintCallable","BlueprintPure","BlueprintEvent","Net","NetServer","NetClient","NetMulticast","Exec","Const"],"items":{"ATornado_Debris_C":{"k":"BlueprintGeneratedClass","p":[["Debris_Mesh","UStaticMeshComponent*",544,8],["DefaultSceneRoot","USceneComponent*",552,8],["PlantSize","float",560,4]],"f":[]}}}

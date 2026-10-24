@@ -1,0 +1,1 @@
+{"name":"GameReporter_BP","flags":["Static","Native","BlueprintCallable","BlueprintPure","BlueprintEvent","Net","NetServer","NetClient","NetMulticast","Exec","Const"],"items":{"UGameReporter_BP_C":{"k":"BlueprintGeneratedClass","p":[],"f":[["GetDamageParsingInfo","FGRDamageParsingInfo",[],20]]}}}

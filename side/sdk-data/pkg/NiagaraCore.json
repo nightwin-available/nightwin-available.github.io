@@ -1,0 +1,1 @@
+{"name":"NiagaraCore","flags":["Static","Native","BlueprintCallable","BlueprintPure","BlueprintEvent","Net","NetServer","NetClient","NetMulticast","Exec","Const"],"items":{"UNiagaraMergeable":{"k":"Class","p":[],"f":[]},"UNiagaraDataInterfaceBase":{"k":"Class","p":[],"f":[]},"FNiagaraCompileHash":{"k":"ScriptStruct","p":[["DataHash","TArray<uint8>",0,16]],"f":[]}}}

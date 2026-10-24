@@ -1,0 +1,1 @@
+{"name":"BB_MenuGamemode","flags":["Static","Native","BlueprintCallable","BlueprintPure","BlueprintEvent","Net","NetServer","NetClient","NetMulticast","Exec","Const"],"items":{"ABB_MenuGamemode_C":{"k":"BlueprintGeneratedClass","p":[["DefaultSceneRoot","USceneComponent*",704,8]],"f":[]}}}

@@ -1,0 +1,1 @@
+{"name":"PacketHandler","flags":["Static","Native","BlueprintCallable","BlueprintPure","BlueprintEvent","Net","NetServer","NetClient","NetMulticast","Exec","Const"],"items":{"UHandlerComponentFactory":{"k":"Class","p":[],"f":[]},"UPacketHandlerProfileConfig":{"k":"Class","p":[["Components","TArray<FString>",40,16]],"f":[]}}}

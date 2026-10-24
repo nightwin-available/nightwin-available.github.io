@@ -1,0 +1,1 @@
+{"name":"Ocean_Mode","flags":["Static","Native","BlueprintCallable","BlueprintPure","BlueprintEvent","Net","NetServer","NetClient","NetMulticast","Exec","Const"],"items":{"EOcean_Mode":{"u":"uint8","v":[["NewEnumerator4",0],["NewEnumerator5",1],["NewEnumerator7",2],["NewEnumerator8",3],["NewEnumerator9",4],["Ocean_MAX",5]]}}}

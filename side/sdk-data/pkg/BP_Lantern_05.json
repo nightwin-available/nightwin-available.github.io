@@ -1,0 +1,1 @@
+{"name":"BP_Lantern_05","flags":["Static","Native","BlueprintCallable","BlueprintPure","BlueprintEvent","Net","NetServer","NetClient","NetMulticast","Exec","Const"],"items":{"ABP_Lantern_05_C":{"k":"BlueprintGeneratedClass","p":[["PointLight","UPointLightComponent*",560,8],["PS_ET_Fire_01","UParticleSystemComponent*",568,8]],"f":[]}}}

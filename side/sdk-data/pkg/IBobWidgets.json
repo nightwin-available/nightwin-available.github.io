@@ -1,0 +1,1 @@
+{"name":"IBobWidgets","flags":["Static","Native","BlueprintCallable","BlueprintPure","BlueprintEvent","Net","NetServer","NetClient","NetMulticast","Exec","Const"],"items":{"IIBobWidgets_C":{"k":"BlueprintGeneratedClass","p":[],"f":[["OnColorSlotClicked","void",[["UUserWidget*","Item",0]],20],["OnColorSlotColorChange","void",[["FLinearColor&","Color",0]],20]]}}}

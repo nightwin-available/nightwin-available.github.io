@@ -1,0 +1,1 @@
+{"name":"SpawnStart_Land","flags":["Static","Native","BlueprintCallable","BlueprintPure","BlueprintEvent","Net","NetServer","NetClient","NetMulticast","Exec","Const"],"items":{"ASpawnStart_Land_C":{"k":"BlueprintGeneratedClass","p":[],"f":[["GetSpawnPointType","ESpawnPointType",[],1052]]}}}

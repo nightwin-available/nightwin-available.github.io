@@ -1,0 +1,1 @@
+{"name":"BP_FireInterface","flags":["Static","Native","BlueprintCallable","BlueprintPure","BlueprintEvent","Net","NetServer","NetClient","NetMulticast","Exec","Const"],"items":{"IBP_FireInterface_C":{"k":"BlueprintGeneratedClass","p":[],"f":[["Ignite","void",[],20],["FireNearby","void",[],20],["FireDamage","void",[["int32","Amount",0]],20],["Unignite","void",[],20]]}}}

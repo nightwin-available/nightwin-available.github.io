@@ -1,0 +1,1 @@
+{"name":"RD_Color","flags":["Static","Native","BlueprintCallable","BlueprintPure","BlueprintEvent","Net","NetServer","NetClient","NetMulticast","Exec","Const"],"items":{"FRD_Color":{"k":"UserDefinedStruct","p":[["Color_4_58FC2AF841EC87AC0E098390C8D71437","FLinearColor",0,16],["Name_5_F7219D47496077A41B43A6A0C5484EC1","FName",16,8]],"f":[]}}}

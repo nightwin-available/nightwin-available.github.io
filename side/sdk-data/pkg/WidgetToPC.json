@@ -1,0 +1,1 @@
+{"name":"WidgetToPC","flags":["Static","Native","BlueprintCallable","BlueprintPure","BlueprintEvent","Net","NetServer","NetClient","NetMulticast","Exec","Const"],"items":{"IWidgetToPC_C":{"k":"BlueprintGeneratedClass","p":[],"f":[["Resume_Pressed","void",[],20]]}}}

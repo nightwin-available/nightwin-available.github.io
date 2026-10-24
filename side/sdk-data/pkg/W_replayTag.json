@@ -1,0 +1,1 @@
+{"name":"W_replayTag","flags":["Static","Native","BlueprintCallable","BlueprintPure","BlueprintEvent","Net","NetServer","NetClient","NetMulticast","Exec","Const"],"items":{"UW_replayTag_C":{"k":"WidgetBlueprintGeneratedClass","p":[["Pid","UTextBlock*",624,8],["PName","UTextBlock*",632,8]],"f":[["SetIdFromPlayer","void",[["ABBPlayerState*","Player",0]],20]]}}}

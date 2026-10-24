@@ -1,0 +1,1 @@
+{"name":"WidgetToCharacterBP","flags":["Static","Native","BlueprintCallable","BlueprintPure","BlueprintEvent","Net","NetServer","NetClient","NetMulticast","Exec","Const"],"items":{"IWidgetToCharacterBP_C":{"k":"BlueprintGeneratedClass","p":[],"f":[["SpawnActor_BP","void",[],20],["SetScore","void",[["int32","Score",0]],20]]}}}

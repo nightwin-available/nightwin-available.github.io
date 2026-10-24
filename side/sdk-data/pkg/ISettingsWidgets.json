@@ -1,0 +1,1 @@
+{"name":"ISettingsWidgets","flags":["Static","Native","BlueprintCallable","BlueprintPure","BlueprintEvent","Net","NetServer","NetClient","NetMulticast","Exec","Const"],"items":{"IISettingsWidgets_C":{"k":"BlueprintGeneratedClass","p":[],"f":[["WasChanged","void",[["bool*","result",1]],1044]]}}}

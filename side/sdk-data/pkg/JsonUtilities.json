@@ -1,0 +1,1 @@
+{"name":"JsonUtilities","flags":["Static","Native","BlueprintCallable","BlueprintPure","BlueprintEvent","Net","NetServer","NetClient","NetMulticast","Exec","Const"],"items":{"UJsonUtilitiesDummyObject":{"k":"Class","p":[],"f":[]},"FJsonObjectWrapper":{"k":"ScriptStruct","p":[["JsonString","FString",0,16]],"f":[]}}}

@@ -1,0 +1,1 @@
+{"name":"Fish_Bot_Waypoint_Parent","flags":["Static","Native","BlueprintCallable","BlueprintPure","BlueprintEvent","Net","NetServer","NetClient","NetMulticast","Exec","Const"],"items":{"AFish_Bot_Waypoint_Parent_C":{"k":"BlueprintGeneratedClass","p":[["WaypointTrack","FString",544,16],["index","int32",560,4]],"f":[]}}}

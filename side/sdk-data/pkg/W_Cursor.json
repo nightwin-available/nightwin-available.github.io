@@ -1,0 +1,1 @@
+{"name":"W_Cursor","flags":["Static","Native","BlueprintCallable","BlueprintPure","BlueprintEvent","Net","NetServer","NetClient","NetMulticast","Exec","Const"],"items":{"UW_Cursor_C":{"k":"WidgetBlueprintGeneratedClass","p":[["CursorImage","UImage*",624,8]],"f":[]}}}
